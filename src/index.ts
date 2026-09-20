@@ -62,6 +62,44 @@ app.get("/openapi.json", (c) => {
 });
 
 /**
+ * Smithery.ai Static Discovery Manifest (Server Card)
+ * Allows Smithery scanner to discover all tools without triggering Cloudflare bot protection.
+ */
+app.get("/.well-known/mcp/server-card.json", (c) => {
+  return c.json({
+    serverInfo: {
+      name: "universal-mcp-server-hub",
+      version: "1.0.0"
+    },
+    authentication: {
+      required: false
+    },
+    tools: MCP_TOOLS,
+    resources: [],
+    prompts: []
+  });
+});
+
+app.get("/.well-known/mcp.json", (c) => {
+  return c.json({
+    version: "1.0",
+    owner: {
+      name: "TopAISaaS",
+      url: "https://topaisaas.workers.dev"
+    },
+    servers: [
+      {
+        name: "universal-mcp-server-hub",
+        transport: "stdio",
+        command: "npx",
+        args: ["-y", "@topaisaas/mcp-server"],
+        description: "Universal Native Model Context Protocol (MCP) Server Hub"
+      }
+    ]
+  });
+});
+
+/**
  * Healthcheck
  */
 app.get("/v1/health", (c) => {

@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Uptime](https://img.shields.io/badge/Uptime-100%25-brightgreen.svg)](https://mcp-server-hub.topaisaas.workers.dev/v1/health)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.0.3-brightgreen.svg)](https://mcp-server-hub.topaisaas.workers.dev/openapi.json)
+[![RapidAPI](https://img.shields.io/badge/RapidAPI-Subscribe%20Free-blue.svg)](https://rapidapi.com/topaisaasdev/api/universal-native-mcp-server-hub/pricing)
 
 With the rise of autonomous coding assistants and agents (**Claude Code, Cursor, Windsurf, Antigravity, CrewAI, LangChain**), the **Model Context Protocol (MCP)** has become the universal standard for tool calling.
 

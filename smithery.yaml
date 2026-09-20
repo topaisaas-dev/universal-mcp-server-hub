@@ -1,10 +1,5 @@
 startCommand:
   type: stdio
-  configSchema:
-    type: object
-    properties:
-      rapidApiKey:
-        type: string
-        description: "Optional RapidAPI key for unlimited production quota (free tier included by default)"
-  command: "node"
-  args: ["bin/cli.js"]
+  configSchema: {}
+  command: "npx"
+  args: ["-y", "@topaisaas/mcp-server"]

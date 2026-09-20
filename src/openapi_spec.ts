@@ -1,0 +1,197 @@
+/**
+ * OpenAPI 3.0.3 Specification for Universal Native MCP Server Hub
+ */
+
+import { MCP_TOOLS } from "./tools_registry";
+
+export const OPENAPI_SPEC = {
+  openapi: "3.0.3",
+  info: {
+    title: "Universal Native MCP Server Hub",
+    version: "1.0.0",
+    description: "Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity. Bridges high-speed web-to-markdown, company enrichment, real-time web search, math fact-checking, tech stack fingerprinter, and prediction market arbitrage into native agent tools.",
+    contact: {
+      name: "TopAI SaaS Studio Support",
+      email: "top.ai.saas@gmail.com",
+      url: "https://mcp-server-hub.topaisaas.workers.dev"
+    },
+    license: {
+      name: "MIT",
+      url: "https://opensource.org/licenses/MIT"
+    }
+  },
+  servers: [
+    {
+      url: "https://mcp-server-hub.topaisaas.workers.dev",
+      description: "Cloudflare Workers Global Edge (Primary Live)"
+    },
+    {
+      url: "https://universal-mcp-server-hub.p.rapidapi.com",
+      description: "RapidAPI Gateway"
+    }
+  ],
+  paths: {
+    "/v1/mcp/tools": {
+      get: {
+        summary: "List Native MCP Tools",
+        description: "Returns the complete catalog of native MCP tools with their JSON Schema parameters, types, and descriptions.",
+        responses: {
+          "200": {
+            description: "List of MCP tools",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean", example: true },
+                    count: { type: "integer", example: 9 },
+                    tools: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          name: { type: "string", example: "topai_web_to_markdown" },
+                          description: { type: "string" },
+                          inputSchema: { type: "object" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/mcp/call": {
+      post: {
+        summary: "Execute an MCP Tool (REST)",
+        description: "Direct REST execution of any registered MCP tool by name with arguments. Returns standard Model Context Protocol content blocks.",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["name", "arguments"],
+                properties: {
+                  name: {
+                    type: "string",
+                    description: "Tool name to execute",
+                    example: "topai_techstack_fingerprint"
+                  },
+                  arguments: {
+                    type: "object",
+                    description: "Arguments conforming to the tool's inputSchema",
+                    example: { "domain": "gymshark.com" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Tool execution output",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean", example: true },
+                    tool: { type: "string", example: "topai_techstack_fingerprint" },
+                    content: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          type: { type: "string", example: "text" },
+                          text: { type: "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp": {
+      post: {
+        summary: "Standard MCP JSON-RPC 2.0 Endpoint",
+        description: "Official Model Context Protocol transport endpoint supporting initialize, tools/list, tools/call, and ping over JSON-RPC 2.0.",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["jsonrpc", "method"],
+                properties: {
+                  jsonrpc: { type: "string", example: "2.0" },
+                  id: { type: "string", example: "1" },
+                  method: { type: "string", example: "tools/call" },
+                  params: {
+                    type: "object",
+                    example: {
+                      name: "topai_math_fact_checker",
+                      arguments: {
+                        operation: "vat_calculate",
+                        amount: 250,
+                        rate_percent: 20
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "JSON-RPC 2.0 response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    jsonrpc: { type: "string", example: "2.0" },
+                    id: { type: "string", example: "1" },
+                    result: { type: "object" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      get: {
+        summary: "Service Healthcheck",
+        description: "Returns uptime, operational status, version, and server timestamp.",
+        responses: {
+          "200": {
+            description: "Service healthy",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    status: { type: "string", example: "ok" },
+                    service: { type: "string", example: "universal-mcp-server-hub" },
+                    timestamp: { type: "string", example: "2026-09-20T21:46:00.000Z" },
+                    version: { type: "string", example: "1.0.0" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};

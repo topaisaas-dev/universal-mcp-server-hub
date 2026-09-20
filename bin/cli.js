@@ -22,10 +22,16 @@ rl.on("line", async (line) => {
   try {
     const jsonReq = JSON.parse(trimmed);
 
+    const headers = { "Content-Type": "application/json" };
+    const apiKey = process.env.TOPAI_RAPIDAPI_KEY || process.env.RAPIDAPI_KEY;
+    if (apiKey) {
+      headers["X-RapidAPI-Key"] = apiKey;
+    }
+
     // Call Cloudflare Edge
     const resp = await fetch(EDGE_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify(jsonReq)
     });
 

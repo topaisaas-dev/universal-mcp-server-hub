@@ -34,8 +34,8 @@ app.get("/", (c) => {
   if (format === "json" || accept.includes("application/json")) {
     return c.json({
       name: "Universal Native MCP Server Hub",
-      version: "1.0.0",
-      description: "Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity. Bridges high-speed web-to-markdown, company enrichment, real-time web search, math fact-checking, tech stack fingerprinter, and prediction market arbitrage into native agent tools.",
+      version: "1.0.2",
+      description: "Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity. Bridges 19 production AI agent tools including web-to-markdown, B2B intelligence, real-time search, semantic caching, financial math, techstack fingerprinter, and prediction market arbitrage.",
       mcp_version: "2024-11-05",
       documentation: "https://mcp-server-hub.topaisaas.workers.dev/openapi.json",
       rapidapi: "https://rapidapi.com/user/topaisaasdev",
@@ -69,8 +69,8 @@ app.get("/.well-known/mcp/server-card.json", (c) => {
   const metadata = {
     name: "universal-mcp-server-hub",
     title: "Universal Native MCP Server Hub",
-    version: "1.0.0",
-    description: "High-performance Model Context Protocol (MCP) server hub providing 9 production-grade AI agent tools: Web-to-Markdown, B2B company deep-enrichment, real-time web search grounding, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, token compression, and prompt shield firewall.",
+    version: "1.0.2",
+    description: "High-performance Model Context Protocol (MCP) server hub providing 19 production-grade AI agent tools: Web-to-Markdown, B2B leads, company deep-enrichment, real-time web search grounding, semantic cache, invoice OCR, headless screenshot, prompt shield firewall, token compression, AgentVision crop, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, MCP registry, PharmaPatent Orange Book watcher, healthcare NPI validator, Google AI Overview extractor, disposable email shield, and OpenAPI spec flattener.",
     homepage: "https://mcp-server-hub.topaisaas.workers.dev",
     icon: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg",
     iconUrl: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg",

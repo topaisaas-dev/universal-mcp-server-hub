@@ -1,7 +1,7 @@
 {
   "name": "@topaisaas/mcp-server",
-  "version": "1.0.1",
-  "description": "Universal Native Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity. Bridges high-speed web-to-markdown, company enrichment, real-time web search, math fact-checking, tech stack fingerprinter, and prediction market arbitrage into native agent tools.",
+  "version": "1.0.2",
+  "description": "Universal Native Model Context Protocol (MCP) Server Hub bundling 19 production-grade AI agent tools: Web-to-Markdown, B2B leads, company deep-enrichment, real-time web search grounding, semantic cache, invoice OCR, headless screenshot, prompt shield firewall, token compression, AgentVision crop, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, MCP registry, PharmaPatent Orange Book watcher, healthcare NPI validator, Google AI Overview extractor, disposable email shield, and OpenAPI spec flattener.",
   "type": "module",
   "main": "bin/cli.js",
   "bin": {

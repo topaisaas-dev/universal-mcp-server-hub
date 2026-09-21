@@ -1,6 +1,8 @@
 name: "universal-mcp-server-hub"
 title: "TopAI Universal Native MCP Server Hub"
-description: "High-performance Model Context Protocol (MCP) server hub providing 19 production-grade AI agent tools: Web-to-Markdown, B2B leads, company deep-enrichment, real-time web search grounding, semantic cache, invoice OCR, headless screenshot, prompt shield firewall, token compression, AgentVision crop, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, MCP registry, PharmaPatent Orange Book watcher, healthcare NPI validator, Google AI Overview extractor, disposable email shield, and OpenAPI spec flattener."
+description: >
+  Universal Native Model Context Protocol (MCP) server hub providing 19 production-grade AI agent tools with sub-50ms serverless edge execution:
+  Web-to-Markdown, B2B Leads, Company Deep-Enrichment, AI Web Search, Semantic Cache, Invoice Extractor, Headless Screenshot, Prompt Shield, TokenSlimmer, AgentVision Crop, Deterministic Math, TechStack Fingerprinter, Polymarket Arbitrage, MCP Hub Registry, PharmaPatent Watcher, Healthcare Validator, Google AI Overview, Disposable Email Shield, and OpenAPI Flattener.
 homepage: "https://mcp-server-hub.topaisaas.workers.dev"
 icon: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg"
 repository: "https://github.com/topaisaas-dev/universal-mcp-server-hub"

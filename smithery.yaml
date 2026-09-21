@@ -5,8 +5,22 @@ homepage: "https://mcp-server-hub.topaisaas.workers.dev"
 icon: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg"
 repository: "https://github.com/topaisaas-dev/universal-mcp-server-hub"
 
+configSchema:
+  type: object
+  properties:
+    rapidApiKey:
+      type: string
+      description: "Optional RapidAPI Key for higher rate limits and quota. Leave blank for public free tier."
+      secret: true
+
 startCommand:
   type: stdio
-  configSchema: {}
+  configSchema:
+    type: object
+    properties:
+      rapidApiKey:
+        type: string
+        description: "Optional RapidAPI Key for higher rate limits and quota. Leave blank for public free tier."
+        secret: true
   command: "npx"
   args: ["-y", "@topaisaas/mcp-server"]

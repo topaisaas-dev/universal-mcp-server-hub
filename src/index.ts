@@ -84,6 +84,16 @@ app.get("/.well-known/mcp/server-card.json", (c) => {
     authentication: {
       required: false
     },
+    configSchema: {
+      type: "object",
+      properties: {
+        rapidApiKey: {
+          type: "string",
+          description: "Optional RapidAPI Key for higher rate limits and quota. Leave blank for public free tier.",
+          secret: true
+        }
+      }
+    },
     tools: MCP_TOOLS,
     resources: [],
     prompts: []

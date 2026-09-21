@@ -2,6 +2,8 @@
 
 > **Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity**
 
+[![smithery badge](https://smithery.ai/badge/top-ai-saas/mcp-server)](https://smithery.ai/servers/top-ai-saas/mcp-server)
+[![npm version](https://img.shields.io/npm/v/@topaisaas/mcp-server?style=flat&color=FFD600)](https://www.npmjs.com/package/@topaisaas/mcp-server)
 [![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare%20Workers-orange.svg)](https://workers.cloudflare.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Uptime](https://img.shields.io/badge/Uptime-100%25-brightgreen.svg)](https://mcp-server-hub.topaisaas.workers.dev/v1/health)

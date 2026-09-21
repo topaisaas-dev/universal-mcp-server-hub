@@ -296,6 +296,7 @@ export function renderLandingPage(): string {
         <div class="brand-title">Universal <span>MCP Server Hub</span></div>
       </a>
       <div class="header-links">
+        <a href="https://smithery.ai/servers/top-ai-saas/mcp-server" target="_blank" class="btn btn-outline">Smithery</a>
         <a href="/openapi.json" class="btn btn-outline mono">/openapi.json</a>
         <a href="https://github.com/topaisaas-dev/universal-mcp-server-hub" target="_blank" class="btn btn-outline">GitHub</a>
         <a href="https://rapidapi.com/user/topaisaasdev" target="_blank" class="btn btn-primary">RapidAPI Hub</a>
@@ -425,6 +426,11 @@ export function renderLandingPage(): string {
     <div class="container">
       <p>TopAI SaaS Studio &copy; 2026. Global Edge Deployment on Cloudflare Workers (0ms cold start).</p>
       <p style="margin-top: 6px;">Universal Native MCP Server Hub conforming to Anthropic Model Context Protocol specification.</p>
+      <div style="margin-top: 16px;">
+        <a href="https://smithery.ai/servers/top-ai-saas/mcp-server" target="_blank" rel="noopener noreferrer">
+          <img src="https://smithery.ai/badge/top-ai-saas/mcp-server" alt="Smithery Badge" style="vertical-align: middle;">
+        </a>
+      </div>
     </div>
   </footer>
 

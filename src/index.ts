@@ -66,11 +66,21 @@ app.get("/openapi.json", (c) => {
  * Allows Smithery scanner to discover all tools without triggering Cloudflare bot protection.
  */
 app.get("/.well-known/mcp/server-card.json", (c) => {
+  const metadata = {
+    name: "universal-mcp-server-hub",
+    title: "Universal Native MCP Server Hub",
+    version: "1.0.0",
+    description: "High-performance Model Context Protocol (MCP) server hub providing 9 production-grade AI agent tools: Web-to-Markdown, B2B company deep-enrichment, real-time web search grounding, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, token compression, and prompt shield firewall.",
+    homepage: "https://mcp-server-hub.topaisaas.workers.dev",
+    icon: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg",
+    iconUrl: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg",
+    repository: "https://github.com/topaisaas-dev/universal-mcp-server-hub",
+    license: "MIT"
+  };
+
   return c.json({
-    serverInfo: {
-      name: "universal-mcp-server-hub",
-      version: "1.0.0"
-    },
+    serverInfo: metadata,
+    ...metadata,
     authentication: {
       required: false
     },

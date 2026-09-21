@@ -4,6 +4,13 @@ export const MCP_TOOLS: McpTool[] = [
   {
     name: "topai_web_to_markdown",
     description: "Extract clean, ad-free, noise-free Markdown and metadata from any public website URL for LLM context windows.",
+    annotations: {
+      title: "Web to Clean Markdown",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: true
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -17,11 +24,29 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["url"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        url: { type: "string", description: "Original source URL" },
+        title: { type: "string", description: "Extracted document title" },
+        markdown: { type: "string", description: "Clean, advertisement-free markdown text" },
+        length: { type: "integer", description: "Character count of markdown content" },
+        tokens_saved_estimate: { type: "integer", description: "Estimated tokens saved compared to raw HTML" }
+      },
+      required: ["markdown", "title"]
     }
   },
   {
     name: "topai_company_enrichment",
     description: "Deep B2B company intelligence: returns company name, sector, employee range, technographics, and contact graph from domain.",
+    annotations: {
+      title: "B2B Company Deep Enrichment",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: true
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -31,11 +56,30 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["domain"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        domain: { type: "string", description: "Queried domain" },
+        company_name: { type: "string", description: "Normalized legal or brand name" },
+        sector: { type: "string", description: "Industry sector" },
+        employee_range: { type: "string", description: "Estimated workforce size range" },
+        technologies: { type: "array", items: { type: "string" }, description: "Detected software and infrastructure" },
+        social_links: { type: "object", description: "Social media links" }
+      },
+      required: ["domain", "company_name"]
     }
   },
   {
     name: "topai_ai_web_search",
     description: "Real-time, noise-free web search engine for grounding AI agents with current facts, URLs, and summaries.",
+    annotations: {
+      title: "AI Real-Time Web Search & Grounding",
+      readOnlyHint: true,
+      idempotentHint: false,
+      destructiveHint: false,
+      openWorldHint: true
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -49,11 +93,38 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["query"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Search query executed" },
+        results_count: { type: "integer", description: "Number of items retrieved" },
+        results: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              url: { type: "string" },
+              snippet: { type: "string" }
+            },
+            required: ["title", "url", "snippet"]
+          }
+        }
+      },
+      required: ["query", "results"]
     }
   },
   {
     name: "topai_math_fact_checker",
     description: "Deterministic financial, VAT, and invoice math engine to eliminate LLM arithmetic hallucinations and audit tax/dates.",
+    annotations: {
+      title: "Deterministic Math & VAT Fact-Checker",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: false
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -76,11 +147,29 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["operation"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        operation: { type: "string", description: "Executed operation" },
+        result: { type: "number", description: "Calculated mathematical result" },
+        formatted: { type: "string", description: "Formatted representation" },
+        is_valid: { type: "boolean", description: "Validation check outcome" },
+        audit_trail: { type: "array", items: { type: "string" }, description: "Step-by-step arithmetic verification trace" }
+      },
+      required: ["operation"]
     }
   },
   {
     name: "topai_techstack_fingerprint",
     description: "Sub-50ms BuiltWith alternative: detect 70+ CMS, eCommerce, CRM, Analytics, and CDN technologies powering a domain.",
+    annotations: {
+      title: "TechStack Technographic Fingerprinter",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: true
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -90,11 +179,31 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["domain"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        domain: { type: "string", description: "Fingerprinted domain" },
+        total_technologies: { type: "integer", description: "Count of identified tools" },
+        cms: { type: "string", description: "Content management system" },
+        ecommerce: { type: "string", description: "E-commerce engine" },
+        analytics: { type: "array", items: { type: "string" } },
+        cdn: { type: "string", description: "CDN / Hosting provider" },
+        frameworks: { type: "array", items: { type: "string" } }
+      },
+      required: ["domain", "total_technologies"]
     }
   },
   {
     name: "topai_polymarket_arbitrage",
     description: "Real-time Polymarket prediction market odds, cross-platform mispricing delta vs bookmakers, and Kelly criterion bankroll position sizer.",
+    annotations: {
+      title: "Polymarket Odds & Arbitrage Delta",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: true
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -112,11 +221,30 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["polymarket_price", "reference_probability"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        market_probability: { type: "number", description: "Implied probability on Polymarket (0.00 to 1.00)" },
+        reference_probability: { type: "number", description: "True probability benchmark" },
+        mispricing_delta: { type: "number", description: "Delta percentage" },
+        expected_value_percent: { type: "number", description: "EV percentage" },
+        kelly_fraction: { type: "number", description: "Recommended fractional Kelly criterion bet size" },
+        recommended_stake_usd: { type: "number", description: "Dollar amount to allocate based on bankroll" }
+      },
+      required: ["market_probability", "mispricing_delta", "kelly_fraction"]
     }
   },
   {
     name: "topai_token_slimmer",
     description: "Lossless compression for HTML, JSON, or text payloads to slash LLM input token costs by 30% to 70%.",
+    annotations: {
+      title: "TokenSlimmer Context Compressor",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: false
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -131,11 +259,29 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["content"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        original_length: { type: "integer", description: "Character count before slimming" },
+        slimmer_length: { type: "integer", description: "Character count after compression" },
+        compression_ratio_percent: { type: "number", description: "Percentage size reduction" },
+        estimated_tokens_saved: { type: "integer", description: "Estimated LLM tokens saved" },
+        compressed_content: { type: "string", description: "Compressed payload ready for prompt insertion" }
+      },
+      required: ["compression_ratio_percent", "compressed_content"]
     }
   },
   {
     name: "topai_prompt_shield",
     description: "Sub-millisecond prompt firewall: detects adversarial prompt injections, jailbreaks, toxic inputs, and PII leakage.",
+    annotations: {
+      title: "LLM Prompt Shield & Firewall",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: false
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -145,11 +291,28 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["prompt"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        is_safe: { type: "boolean", description: "True if prompt is safe, false if attack detected" },
+        threat_score: { type: "number", description: "Threat probability from 0.0 to 1.0" },
+        attack_category: { type: "string", description: "Detected category: none, jailbreak, injection, toxicity, pii" },
+        flagged_tokens: { type: "array", items: { type: "string" }, description: "Suspicious keywords identified" }
+      },
+      required: ["is_safe", "threat_score"]
     }
   },
   {
     name: "topai_invoice_extractor",
     description: "Structured financial entity parser: extracts vendor, invoice number, IBAN, line items, and totals from receipt/invoice text.",
+    annotations: {
+      title: "Invoice & PDF Entity Extractor",
+      readOnlyHint: true,
+      idempotentHint: true,
+      destructiveHint: false,
+      openWorldHint: false
+    },
     inputSchema: {
       type: "object",
       properties: {
@@ -159,6 +322,30 @@ export const MCP_TOOLS: McpTool[] = [
         }
       },
       required: ["text"]
+    },
+    outputSchema: {
+      type: "object",
+      properties: {
+        vendor_name: { type: "string", description: "Detected company or merchant" },
+        invoice_number: { type: "string", description: "Extracted invoice reference ID" },
+        invoice_date: { type: "string", description: "Standardized ISO date" },
+        total_amount: { type: "number", description: "Invoice gross total" },
+        vat_amount: { type: "number", description: "Extracted VAT amount" },
+        currency: { type: "string", description: "Currency code (EUR, USD, GBP)" },
+        line_items: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              description: { type: "string" },
+              quantity: { type: "number" },
+              unit_price: { type: "number" },
+              total: { type: "number" }
+            }
+          }
+        }
+      },
+      required: ["total_amount"]
     }
   }
 ];

@@ -19,6 +19,15 @@ export interface McpTool {
   name: string;
   description: string;
   inputSchema: McpToolInputSchema;
+  outputSchema?: Record<string, any>;
+  annotations?: {
+    title?: string;
+    readOnlyHint?: boolean;
+    idempotentHint?: boolean;
+    destructiveHint?: boolean;
+    openWorldHint?: boolean;
+    [key: string]: any;
+  };
 }
 
 export interface McpContentItem {

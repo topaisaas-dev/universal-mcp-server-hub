@@ -37,16 +37,29 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean", "example": true },
-                    "count": { "type": "integer", "example": 9 },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 9
+                    },
                     "tools": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "name": { "type": "string", "example": "topai_web_to_markdown" },
-                          "description": { "type": "string" },
-                          "inputSchema": { "type": "object" }
+                          "name": {
+                            "type": "string",
+                            "example": "topai_web_to_markdown"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "inputSchema": {
+                            "type": "object"
+                          }
                         }
                       }
                     }
@@ -55,7 +68,8 @@
               }
             }
           }
-        }
+        },
+        "operationId": "getMcpTools"
       }
     },
     "/v1/mcp/call": {
@@ -68,7 +82,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "arguments"],
+                "required": [
+                  "name",
+                  "arguments"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -78,7 +95,9 @@
                   "arguments": {
                     "type": "object",
                     "description": "Arguments conforming to the tool's inputSchema",
-                    "example": { "domain": "gymshark.com" }
+                    "example": {
+                      "domain": "gymshark.com"
+                    }
                   }
                 }
               }
@@ -93,15 +112,26 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean", "example": true },
-                    "tool": { "type": "string", "example": "topai_techstack_fingerprint" },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "tool": {
+                      "type": "string",
+                      "example": "topai_techstack_fingerprint"
+                    },
                     "content": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "type": { "type": "string", "example": "text" },
-                          "text": { "type": "string" }
+                          "type": {
+                            "type": "string",
+                            "example": "text"
+                          },
+                          "text": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -110,7 +140,8 @@
               }
             }
           }
-        }
+        },
+        "operationId": "postMcpCall"
       }
     },
     "/mcp": {
@@ -123,11 +154,23 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["jsonrpc", "method"],
+                "required": [
+                  "jsonrpc",
+                  "method"
+                ],
                 "properties": {
-                  "jsonrpc": { "type": "string", "example": "2.0" },
-                  "id": { "type": "string", "example": "1" },
-                  "method": { "type": "string", "example": "tools/call" },
+                  "jsonrpc": {
+                    "type": "string",
+                    "example": "2.0"
+                  },
+                  "id": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "tools/call"
+                  },
                   "params": {
                     "type": "object",
                     "example": {
@@ -152,15 +195,24 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "jsonrpc": { "type": "string", "example": "2.0" },
-                    "id": { "type": "string", "example": "1" },
-                    "result": { "type": "object" }
+                    "jsonrpc": {
+                      "type": "string",
+                      "example": "2.0"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "1"
+                    },
+                    "result": {
+                      "type": "object"
+                    }
                   }
                 }
               }
             }
           }
-        }
+        },
+        "operationId": "postMcp"
       }
     },
     "/v1/health": {
@@ -175,16 +227,29 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "ok" },
-                    "service": { "type": "string", "example": "universal-mcp-server-hub" },
-                    "timestamp": { "type": "string", "example": "2026-09-20T21:46:00.000Z" },
-                    "version": { "type": "string", "example": "1.0.0" }
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "service": {
+                      "type": "string",
+                      "example": "universal-mcp-server-hub"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "example": "2026-09-20T21:46:00.000Z"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    }
                   }
                 }
               }
             }
           }
-        }
+        },
+        "operationId": "getHealth"
       }
     }
   }

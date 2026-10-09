@@ -24,7 +24,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Whether to retain anchor links in the Markdown output (default: true)"
         }
       },
-      required: ["url"]
+      required: ["url"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -66,7 +67,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Maximum number of leads to return (1-50, default: 10)"
         }
       },
-      required: ["industry"]
+      required: ["industry"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -113,7 +115,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Company domain name (e.g. 'linear.app', 'figma.com')"
         }
       },
-      required: ["domain"]
+      required: ["domain"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -152,7 +155,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Maximum results to retrieve (1-10, default: 5)"
         }
       },
-      required: ["query"]
+      required: ["query"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -204,7 +208,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Completion response text to store when action is 'set'"
         }
       },
-      required: ["action", "prompt"]
+      required: ["action", "prompt"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -238,7 +243,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Raw invoice OCR or PDF text"
         }
       },
-      required: ["text"]
+      required: ["text"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -294,7 +300,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Output image format (default: 'png')"
         }
       },
-      required: ["url"]
+      required: ["url"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -335,7 +342,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "User prompt or external text to inspect"
         }
       },
-      required: ["prompt"]
+      required: ["prompt"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -373,7 +381,8 @@ export const MCP_TOOLS: McpTool[] = [
           enum: ["html", "json", "text"]
         }
       },
-      required: ["content"]
+      required: ["content"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -412,7 +421,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Target visual element type to detect and crop (default: 'auto')"
         }
       },
-      required: ["image_url"]
+      required: ["image_url"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -468,7 +478,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Array of items [{ description, quantity, unit_price }] for invoice reconciliation"
         }
       },
-      required: ["operation"]
+      required: ["operation"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -502,7 +513,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Domain to fingerprint (e.g. 'gymshark.com')"
         }
       },
-      required: ["domain"]
+      required: ["domain"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -546,7 +558,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Total bankroll in USD to calculate dollar sizing"
         }
       },
-      required: ["polymarket_price", "reference_probability"]
+      required: ["polymarket_price", "reference_probability"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -585,6 +598,7 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Optional search keyword to match against tool names and descriptions"
         }
       }
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -632,7 +646,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Target patent jurisdiction (default: 'US')"
         }
       },
-      required: ["drug_name"]
+      required: ["drug_name"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -685,7 +700,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Optional 2-letter state code (e.g. 'CA', 'NY', 'TX')"
         }
       },
-      required: ["npi_number"]
+      required: ["npi_number"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -728,7 +744,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Language code (default: 'en')"
         }
       },
-      required: ["query"]
+      required: ["query"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -774,7 +791,8 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Email address to verify (e.g. 'test@tempmail.com')"
         }
       },
-      required: ["email"]
+      required: ["email"],
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",
@@ -814,6 +832,7 @@ export const MCP_TOOLS: McpTool[] = [
           description: "Raw OpenAPI JSON string if passing spec inline directly"
         }
       }
+      additionalProperties: false
     },
     outputSchema: {
       type: "object",

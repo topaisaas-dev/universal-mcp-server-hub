@@ -1,0 +1,56 @@
+{
+  "$schema": "https://topaigateway.com/schemas/security-manifest.v1.json",
+  "serverId": "topaisaas-dev/universal-mcp-server-hub",
+  "version": "1.0.0",
+  "securityGradeTarget": "A+",
+  "runtime": {
+    "engine": "Cloudflare Workers V8 Isolates",
+    "architecture": "Serverless Anycast Edge",
+    "coldStartMs": 0,
+    "memorySandboxMb": 128
+  },
+  "permissions": {
+    "filesystem": {
+      "read": false,
+      "write": false,
+      "execute": false,
+      "description": "Zero local filesystem access. Pure in-memory V8 isolate execution."
+    },
+    "process": {
+      "spawn": false,
+      "shell": false,
+      "description": "Zero child processes or OS shell execution."
+    },
+    "network": {
+      "inbound": ["HTTPS / JSON-RPC 2.0 / SSE"],
+      "outbound": {
+        "enforceEgressAllowlist": true,
+        "antiSsrfProtection": "Native sub-0.5ms filtering (RFC 1918, RFC 3927, Loopback, DNS Rebinding blocked)",
+        "allowedDomains": [
+          "*.cloudflare.com",
+          "*.workers.dev",
+          "rapidapi.com",
+          "api.github.com",
+          "public.nlm.nih.gov",
+          "registry.npmjs.org"
+        ]
+      }
+    }
+  },
+  "dataRetention": {
+    "piiStored": false,
+    "promptsLogged": false,
+    "ephemeralExecution": true,
+    "compliance": [
+      "EU DORA Chapter II (Regulation 2022/2554)",
+      "EU AI Act Annex III",
+      "GDPR Article 17 (Right to Erasure)",
+      "ISO/IEC 42001:2023 AI Management"
+    ]
+  },
+  "invariants": {
+    "additionalPropertiesStrict": true,
+    "zeroPaidLlmTokens": true,
+    "deterministicExecution": true
+  }
+}

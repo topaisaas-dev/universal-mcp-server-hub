@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "name": "topai-universal-mcp-server-hub",
+  "version": "1.0.0",
+  "description": "Universal Native MCP Server Hub providing 19 production-grade AI agent tools with sub-50ms serverless edge execution.",
+  "homepage": "https://mcp-server-hub.topaisaas.workers.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/topaisaas-dev/universal-mcp-server-hub.git"
+  },
+  "mcpServers": {
+    "topai-hub": {
+      "command": "npx",
+      "args": ["-y", "@topaisaas/mcp-server"],
+      "env": {
+        "RAPIDAPI_KEY": ""
+      }
+    }
+  }
+}

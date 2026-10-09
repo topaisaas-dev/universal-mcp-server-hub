@@ -149,3 +149,11 @@ curl -X POST https://mcp-server-hub.topaisaas.workers.dev/mcp \
 - **0ms Cold-Start**: Powered by Cloudflare Workers V8 isolates worldwide.
 - **100% Stateless**: No user prompts, code, or arguments are logged or stored.
 - **Spec Compliance**: Fully compliant with the Anthropic Model Context Protocol (2024-11-05).
+
+---
+
+## 📬 Marketplaces & Publisher Profile
+
+- **RapidAPI Publisher Profile**: [rapidapi.com/user/topaisaasdev](https://rapidapi.com/user/topaisaasdev)
+- **TopAI Master Organization**: [github.com/topaisaas-dev](https://github.com/topaisaas-dev)
+- **M8ven Trust Index**: [m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub](https://m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub)

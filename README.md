@@ -1,19 +1,21 @@
-# Universal Native MCP Server Hub
+# Universal Native MCP Server Hub — TopAI Sovereign Gateway
 
 > **Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity**
+> 🌐 **Official Gateway & Free Sandbox Key (100 req/mo)**: **[https://topaigateway.com](https://topaigateway.com)** · 📚 **Docs (400+ APIs & 201 Tools)**: **[https://topaigateway.com/docs](https://topaigateway.com/docs)**
 
+[![Glama MCP](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub/badge)](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub)
 [![M8ven Trust](https://m8ven.ai/badge/mcp/topaisaas-dev/universal-mcp-server-hub)](https://m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub)
 [![smithery badge](https://smithery.ai/badge/top-ai-saas/mcp-server)](https://smithery.ai/servers/top-ai-saas/mcp-server)
 [![npm version](https://img.shields.io/npm/v/@topaisaas/mcp-server?style=flat&color=FFD600)](https://www.npmjs.com/package/@topaisaas/mcp-server)
-[![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare%20Workers-orange.svg)](https://workers.cloudflare.com/)
+[![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare%20Workers-orange.svg)](https://topaigateway.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Uptime](https://img.shields.io/badge/Uptime-100%25-brightgreen.svg)](https://mcp-server-hub.topaisaas.workers.dev/v1/health)
-[![OpenAPI](https://img.shields.io/badge/OpenAPI-3.0.3-brightgreen.svg)](https://mcp-server-hub.topaisaas.workers.dev/openapi.json)
+[![Uptime](https://img.shields.io/badge/Uptime-100%25-brightgreen.svg)](https://topaigateway.com/v1/health)
+[![OpenAPI](https://img.shields.io/badge/OpenAPI-3.0.3-brightgreen.svg)](https://topaigateway.com/openapi.json)
 [![RapidAPI](https://img.shields.io/badge/RapidAPI-Subscribe%20Free-blue.svg)](https://rapidapi.com/topaisaasdev/api/universal-native-mcp-server-hub/pricing)
 
 With the rise of autonomous coding assistants and agents (**Claude Code, Cursor, Windsurf, Antigravity, CrewAI, LangChain**), the **Model Context Protocol (MCP)** has become the universal standard for tool calling.
 
-Instead of installing 19 separate local servers or bloated Docker containers, **Universal Native MCP Server Hub** bundles 19 production-grade AI primitives into a single serverless edge hub running with 0ms cold-start latency across 300+ global Cloudflare locations.
+Instead of installing 19 separate local servers or bloated Docker containers, **Universal Native MCP Server Hub** bundles 19 production-grade AI primitives (and routes to **400+ deterministic edge APIs** at **[topaigateway.com](https://topaigateway.com)**) into a single serverless edge hub running with 0ms cold-start latency across 330+ global Cloudflare locations.
 
 ---
 
@@ -152,8 +154,15 @@ curl -X POST https://mcp-server-hub.topaisaas.workers.dev/mcp \
 
 ---
 
-## 📬 Marketplaces & Publisher Profile
+## 📬 Official Gateway, 4 Cumulative Packs & Marketplaces
 
+- **Official Sovereign Gateway (400+ APIs & Free Sandbox Key)**: **[https://topaigateway.com](https://topaigateway.com)**
+  - 🟢 **Pack 1 — DevEx & FinOps** (`100 APIs` · `10,000 req/mo` · **€14/mo**)
+  - 🔵 **Pack 2 — Squad Velocity** (`210 APIs` · `50,000 req/mo` · **€29/mo**)
+  - 🟣 **Pack 3 — High-Scale & Infra** (`310 APIs` · `250,000 req/mo` · **€79/mo**)
+  - 🔴 **Pack 4 — Sovereign Enterprise** (`400 APIs + DORA Audit` · `1,000,000 req/mo` · **€199/mo**)
+- **Interactive Documentation**: **[https://topaigateway.com/docs](https://topaigateway.com/docs)**
+- **Glama MCP Directory**: **[glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub)**
 - **RapidAPI Publisher Profile**: [rapidapi.com/user/topaisaasdev](https://rapidapi.com/user/topaisaasdev)
 - **TopAI Master Organization**: [github.com/topaisaas-dev](https://github.com/topaisaas-dev)
 - **M8ven Trust Index**: [m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub](https://m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub)

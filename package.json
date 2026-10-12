@@ -22,6 +22,7 @@
     "url": "git+https://github.com/topaisaas-dev/universal-mcp-server-hub.git"
   },
   "scripts": {
+    "build": "node --check bin/cli.js",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "test": "node --test tests/mcp_hub.test.js"

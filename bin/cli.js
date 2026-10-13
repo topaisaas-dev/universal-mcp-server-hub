@@ -666,7 +666,7 @@ rl.on("line", async (line) => {
           },
           serverInfo: {
             name: "universal-mcp-server-hub",
-            version: "1.0.2"
+            version: "1.0.3"
           },
           instructions: SERVER_INSTRUCTIONS
         }

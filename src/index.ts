@@ -104,8 +104,8 @@ app.get("/.well-known/mcp.json", (c) => {
   return c.json({
     version: "1.0",
     owner: {
-      name: "TopAISaaS",
-      url: "https://topaisaas.workers.dev"
+      name: "TopAI Sovereign Gateway",
+      url: "https://topaigateway.com"
     },
     servers: [
       {
@@ -114,9 +114,130 @@ app.get("/.well-known/mcp.json", (c) => {
         command: "npx",
         args: ["-y", "@topaisaas/mcp-server"],
         description: "Universal Native Model Context Protocol (MCP) Server Hub"
+      },
+      {
+        name: "universal-mcp-server-hub-remote",
+        transport: "sse",
+        url: "https://mcp-server-hub.topaisaas.workers.dev/sse",
+        endpoint: "https://mcp-server-hub.topaisaas.workers.dev/mcp",
+        description: "Remote Streamable HTTP & SSE MCP Hub (19 Native Tools + 400 Edge APIs)"
       }
     ]
   });
+});
+
+/**
+ * Universal A2A / ERC-8004 / Agenstry / BrickBlue / AgentProbe Discovery Card
+ */
+const AGENT_DISCOVERY_CARD = () => ({
+  schema_version: "1.0",
+  protocol: "mcp+a2a",
+  mcp_version: "2024-11-05",
+  name: "TopAI Sovereign Gateway & Universal MCP Hub",
+  id: "universal-mcp-server-hub",
+  version: "1.0.2",
+  description: "Sub-30ms Deterministic AI Edge Gateway & Universal MCP Server Hub bundling 19 native MCP tools and 400+ deterministic APIs (Web-to-Markdown, TokenSlimmer -70% LLM cost cutter, Prompt Shield, SEPA IBAN VoP, EU AI Act & DORA compliance).",
+  url: "https://topaigateway.com",
+  homepage: "https://topaigateway.com",
+  documentationUrl: "https://topaigateway.com/docs",
+  pricingUrl: "https://topaigateway.com/#pricing",
+  openapiUrl: "https://topaigateway.com/openapi.json",
+  provider: {
+    organization: "TopAI Sovereign Gateway",
+    url: "https://topaigateway.com"
+  },
+  capabilities: {
+    streaming: true,
+    pushNotifications: false,
+    stateTransitionHistory: false,
+    mcp: true,
+    tools_count: MCP_TOOLS.length
+  },
+  endpoints: {
+    mcp_jsonrpc: "https://mcp-server-hub.topaisaas.workers.dev/mcp",
+    mcp_sse: "https://mcp-server-hub.topaisaas.workers.dev/sse",
+    mcp_messages: "https://mcp-server-hub.topaisaas.workers.dev/messages",
+    tools_list: "https://mcp-server-hub.topaisaas.workers.dev/v1/mcp/tools",
+    health: "https://mcp-server-hub.topaisaas.workers.dev/v1/health"
+  },
+  authentication: {
+    schemes: ["Bearer", "X-RapidAPI-Key", "None (Free Tier Sandbox)"],
+    required: false,
+    signup_url: "https://topaigateway.com"
+  },
+  pricing: {
+    currency: "EUR",
+    free_tier: { requests_per_month: 100, price: 0 },
+    packs: [
+      { name: "Pack 1 - DevEx & FinOps (100 APIs)", price_eur_month: 14, quota: 10000 },
+      { name: "Pack 2 - Squad Velocity (210 APIs)", price_eur_month: 29, quota: 50000 },
+      { name: "Pack 3 - High-Scale & Infra (310 APIs)", price_eur_month: 79, quota: 250000 },
+      { name: "Pack 4 - Sovereign Enterprise (400 APIs + DORA)", price_eur_month: 199, quota: 1000000 }
+    ]
+  },
+  tools: MCP_TOOLS
+});
+
+for (const discoveryPath of [
+  "/.well-known/agent-card.json",
+  "/.well-known/agent.json",
+  "/.well-known/agent",
+  "/.well-known/agent-registration.json",
+  "/.well-known/a2a.json",
+  "/.well-known/ai-catalog.json",
+  "/.well-known/ard.json",
+  "/agent.json",
+  "/agent",
+  "/agent/authenticatedExtendedCard",
+  "/a2a/agent-card.json",
+  "/a2a/.well-known/agent.json",
+  "/mcp/agent-card.json",
+  "/mcp/.well-known/agent-card.json",
+  "/agents/.well-known/agent-card.json",
+  "/discovery/resources"
+]) {
+  app.get(discoveryPath, (c) => c.json(AGENT_DISCOVERY_CARD()));
+}
+
+app.get("/llms.txt", (c) => {
+  return c.text(
+    `# TopAI Sovereign Gateway — Universal Native MCP Server Hub\n` +
+    `> Official Gateway: https://topaigateway.com | Docs: https://topaigateway.com/docs\n` +
+    `> MCP JSON-RPC Endpoint: https://mcp-server-hub.topaisaas.workers.dev/mcp\n` +
+    `> MCP SSE Endpoint: https://mcp-server-hub.topaisaas.workers.dev/sse\n` +
+    `> OpenAPI 3.0 Spec: https://topaigateway.com/openapi.json\n\n` +
+    `## Pricing & Cumulative Packs\n` +
+    `- Free Sandbox: €0/mo (100 req/mo) at https://topaigateway.com\n` +
+    `- Pack 1 (DevEx & FinOps - 100 APIs): €14/mo (10,000 req/mo)\n` +
+    `- Pack 2 (Squad Velocity - 210 APIs): €29/mo (50,000 req/mo)\n` +
+    `- Pack 3 (High-Scale & Infra - 310 APIs): €79/mo (250,000 req/mo)\n` +
+    `- Pack 4 (Sovereign Enterprise - 400 APIs + DORA): €199/mo (1,000,000 req/mo)\n\n` +
+    `## 19 Native Pre-Bundled MCP Tools\n` +
+    MCP_TOOLS.map((t) => `- ${t.name}: ${t.description}`).join("\n") + "\n"
+  );
+});
+
+app.get("/pricing", (c) => c.redirect("https://topaigateway.com/#pricing", 301));
+
+app.get("/robots.txt", (c) => {
+  return c.text(
+    `User-agent: *\nAllow: /\nSitemap: https://mcp-server-hub.topaisaas.workers.dev/sitemap.xml\n`
+  );
+});
+
+app.get("/sitemap.xml", (c) => {
+  return c.body(
+    `<?xml version="1.0" encoding="UTF-8"?>\n` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    `  <url><loc>https://topaigateway.com/</loc><priority>1.0</priority></url>\n` +
+    `  <url><loc>https://topaigateway.com/docs</loc><priority>0.9</priority></url>\n` +
+    `  <url><loc>https://mcp-server-hub.topaisaas.workers.dev/</loc><priority>0.9</priority></url>\n` +
+    `  <url><loc>https://mcp-server-hub.topaisaas.workers.dev/openapi.json</loc><priority>0.8</priority></url>\n` +
+    `  <url><loc>https://mcp-server-hub.topaisaas.workers.dev/llms.txt</loc><priority>0.8</priority></url>\n` +
+    `</urlset>`,
+    200,
+    { "Content-Type": "application/xml; charset=utf-8" }
+  );
 });
 
 /**
@@ -128,7 +249,7 @@ app.get("/v1/health", (c) => {
     service: "universal-mcp-server-hub",
     timestamp: new Date().toISOString(),
     uptime_sla: "99.99%",
-    version: "1.0.0",
+    version: "1.0.2",
     tools_registered: MCP_TOOLS.length,
     edge_runtime: "cloudflare_workers"
   });
@@ -178,9 +299,9 @@ app.post("/v1/mcp/call", async (c) => {
 });
 
 /**
- * Official MCP JSON-RPC 2.0 Endpoint (Cursor, Claude Code, Windsurf)
+ * Official MCP JSON-RPC 2.0 Handler (supports POST /mcp, POST /sse, POST /, POST /messages)
  */
-app.post("/mcp", async (c) => {
+const handleMcpJsonRpcPost = async (c: any) => {
   try {
     const req = await c.req.json() as JsonRpcRequest;
     const res = await McpServer.handleJsonRpc(req);
@@ -200,7 +321,11 @@ app.post("/mcp", async (c) => {
       }
     }, 400);
   }
-});
+};
+
+app.post("/mcp", handleMcpJsonRpcPost);
+app.post("/sse", handleMcpJsonRpcPost);
+app.post("/", handleMcpJsonRpcPost);
 
 /**
  * Server-Sent Events (SSE) Endpoint for MCP Streaming Clients
@@ -239,23 +364,6 @@ app.get("/sse", (c) => {
 /**
  * SSE Message Handler
  */
-app.post("/messages", async (c) => {
-  try {
-    const req = await c.req.json() as JsonRpcRequest;
-    const res = await McpServer.handleJsonRpc(req);
-
-    if (res === null) {
-      return new Response(null, { status: 204 });
-    }
-
-    return c.json(res);
-  } catch (err: any) {
-    return c.json({
-      jsonrpc: "2.0",
-      id: null,
-      error: { code: -32700, message: "Parse error" }
-    }, 400);
-  }
-});
+app.post("/messages", handleMcpJsonRpcPost);
 
 export default app;

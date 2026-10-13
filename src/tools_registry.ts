@@ -597,7 +597,7 @@ export const MCP_TOOLS: McpTool[] = [
           type: "string",
           description: "Optional search keyword to match against tool names and descriptions"
         }
-      }
+      },
       additionalProperties: false
     },
     outputSchema: {
@@ -831,7 +831,7 @@ export const MCP_TOOLS: McpTool[] = [
           type: "string",
           description: "Raw OpenAPI JSON string if passing spec inline directly"
         }
-      }
+      },
       additionalProperties: false
     },
     outputSchema: {

@@ -1,5 +1,5 @@
-import { JsonRpcRequest, JsonRpcResponse } from "./types";
-import { MCP_TOOLS, ToolExecutor } from "./tools_registry";
+import type { JsonRpcRequest, JsonRpcResponse } from "./types.ts";
+import { MCP_TOOLS, ToolExecutor } from "./tools_registry.ts";
 
 export class McpServer {
   /**
@@ -22,7 +22,7 @@ export class McpServer {
             },
             serverInfo: {
               name: "topai-mcp-hub",
-              version: "1.0.0"
+              version: "1.0.5"
             }
           }
         };
@@ -43,7 +43,7 @@ export class McpServer {
           jsonrpc: "2.0",
           id,
           result: {
-            tools: MCP_TOOLS
+            tools: MCP_TOOLS.map(({ outputSchema, ...tool }) => tool)
           }
         };
 

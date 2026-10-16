@@ -1,6 +1,6 @@
 {
   "name": "@topaisaas/mcp-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Universal Native Model Context Protocol (MCP) Server Hub bundling 19 production-grade AI agent tools: Web-to-Markdown, B2B leads, company deep-enrichment, real-time web search grounding, semantic cache, invoice OCR, headless screenshot, prompt shield firewall, token compression, AgentVision crop, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, MCP registry, PharmaPatent Orange Book watcher, healthcare NPI validator, Google AI Overview extractor, disposable email shield, and OpenAPI spec flattener.",
   "type": "module",
   "main": "bin/cli.js",

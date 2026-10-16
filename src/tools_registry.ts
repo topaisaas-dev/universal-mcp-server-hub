@@ -1064,20 +1064,79 @@ export class ToolExecutor {
 
   // 06: Invoice Extractor
   private static async execInvoiceExtractor(args: any): Promise<McpCallResult> {
-    const text = String(args.text || "");
+    const rawText = String(args.text || args.content || "");
+    if (!rawText.trim()) {
+      return {
+        isError: true,
+        content: [{ type: "text", text: "Missing required 'text' parameter containing invoice content or OCR text." }]
+      };
+    }
+
+    const text = rawText.replace(/\r\n/g, "\n");
+    const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+
+    let currency = "EUR";
+    let currencySymbol = "€";
+    if (/[$]|\bUSD\b|\bDOLLAR\b/i.test(text)) { currency = "USD"; currencySymbol = "$"; }
+    else if (/[£]|\bGBP\b/i.test(text)) { currency = "GBP"; currencySymbol = "£"; }
+
+    const invMatch = text.match(/(?:facture|invoice|inv|bill|n°|numéro)\s*[:#]?\s*([A-Z0-9_-]{3,30})/i);
+    const invoiceNumber = invMatch ? invMatch[1].trim() : "NOT_SPECIFIED";
+
+    const dateMatch = text.match(/\b(\d{1,2}[\/\.-]\d{1,2}[\/\.-]\d{2,4})\b/);
+    const invoiceDate = dateMatch ? dateMatch[1] : "NOT_SPECIFIED";
+
+    const lineItems: Array<{ description: string; quantity: number; unit_price: number; total: number }> = [];
+    for (const line of lines) {
+      const m = line.match(/^(.+?)\s+(\d+(?:[.,]\d+)?)\s+([0-9\s,.]+)\s+([0-9\s,.]+)\s*(?:€|\$|EUR|USD)?$/);
+      if (m && !/total|tva|vat|subtotal|net/i.test(m[1])) {
+        const qty = parseFloat(m[2].replace(",", ".")) || 1;
+        const up = parseFloat(m[3].replace(/\s/g, "").replace(",", ".")) || 0;
+        const tot = parseFloat(m[4].replace(/\s/g, "").replace(",", ".")) || (qty * up);
+        lineItems.push({
+          description: m[1].trim(),
+          quantity: qty,
+          unit_price: Math.round(up * 100) / 100,
+          total: Math.round(tot * 100) / 100
+        });
+      }
+    }
+
+    const cleanNum = (str: string | undefined) => {
+      if (!str) return 0;
+      return parseFloat(str.replace(/\s+/g, "").replace(",", ".")) || 0;
+    };
+
+    const subtotalMatch = text.match(/(?:total\s*h\.?t\.?|subtotal|net\s*amount)\s*[:=]?\s*([0-9\s,.]+)/i);
+    const vatMatch = text.match(/(?:tva|vat|tax)\s*(?:\([0-9.]+%\))?\s*[:=]?\s*([0-9\s,.]+)/i);
+    const totalMatch = text.match(/(?:total\s*t\.?t\.?c\.?|total\s*amount|net\s*à\s*payer|amount\s*due|grand\s*total)\s*[:=]?\s*([0-9\s,.]+)/i);
+
+    let subtotalHt = cleanNum(subtotalMatch?.[1]);
+    if (subtotalHt === 0 && lineItems.length > 0) {
+      subtotalHt = Math.round(lineItems.reduce((acc, it) => acc + it.total, 0) * 100) / 100;
+    }
+
+    const vatAmount = cleanNum(vatMatch?.[1]);
+    let totalTtc = cleanNum(totalMatch?.[1]);
+    if (totalTtc === 0) {
+      totalTtc = Math.round((subtotalHt + vatAmount) * 100) / 100;
+    }
+
     return {
       content: [{
         type: "text",
         text: JSON.stringify({
-          vendor_name: "Stripe Billing Services",
-          invoice_number: "INV-2026-8891",
-          invoice_date: "2026-03-15",
-          total_amount: 1450.00,
-          vat_amount: 290.00,
-          currency: "EUR",
-          line_items: [
-            { description: "Serverless Cloud Computing", quantity: 1, unit_price: 1450.00, total: 1450.00 }
-          ]
+          invoice_number: invoiceNumber,
+          invoice_date: invoiceDate,
+          currency,
+          currency_symbol: currencySymbol,
+          subtotal_ht: subtotalHt,
+          vat_amount: vatAmount,
+          total_ttc: totalTtc,
+          line_items_count: lineItems.length,
+          line_items: lineItems,
+          is_math_consistent: Math.abs((subtotalHt + vatAmount) - totalTtc) < 0.05,
+          extraction_engine: "TopAI Deterministic Invoice Parser v1"
         }, null, 2)
       }]
     };
@@ -1121,21 +1180,90 @@ export class ToolExecutor {
 
   // 09: TokenSlimmer
   private static async execTokenSlimmer(args: any): Promise<McpCallResult> {
-    const content = String(args.content || "");
-    const compressed = content.replace(/<!--[\s\S]*?-->/g, "").replace(/\s+/g, " ").trim();
-    const originalTokens = Math.round(content.length / 4);
-    const savedTokens = Math.round(compressed.length / 4);
-    const savingsPct = originalTokens > 0 ? Math.round(((originalTokens - savedTokens) / originalTokens) * 100) : 0;
+    const raw = args.content !== undefined ? args.content : (args.text !== undefined ? args.text : (args.json_data !== undefined ? args.json_data : args.data));
+    if (raw === undefined || raw === null) {
+      return {
+        isError: true,
+        content: [{ type: "text", text: "Missing required 'content', 'text', or 'json_data' parameter." }]
+      };
+    }
+
+    let inputStr = typeof raw === "string" ? raw : JSON.stringify(raw);
+    const originalLength = inputStr.length;
+    let slimmed = inputStr;
+    let detectedType = "text";
+
+    try {
+      const parsed = typeof raw === "object" ? raw : JSON.parse(inputStr);
+      detectedType = Array.isArray(parsed) ? "json_array" : "json_object";
+
+      if (Array.isArray(parsed) && parsed.length > 0 && typeof parsed[0] === "object" && parsed[0] !== null) {
+        const keys = Array.from(new Set(parsed.flatMap(obj => Object.keys(obj))));
+        const header = keys.join("\t");
+        const rows = parsed.map(obj => keys.map(k => {
+          const val = obj[k];
+          return val === null || val === undefined ? "" : String(val).replace(/\t|\n/g, " ");
+        }).join("\t"));
+        slimmed = `[TSV_TABLE: ${parsed.length} rows]\n${header}\n${rows.join("\n")}`;
+      } else if (typeof parsed === "object" && parsed !== null) {
+        const prune = (obj: any): any => {
+          if (Array.isArray(obj)) {
+            return obj.filter(v => v !== null && v !== undefined && v !== "").map(prune);
+          }
+          if (obj !== null && typeof obj === "object") {
+            const out: any = {};
+            for (const [k, v] of Object.entries(obj)) {
+              if (v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && v.length === 0)) {
+                out[k] = prune(v);
+              }
+            }
+            return out;
+          }
+          return obj;
+        };
+        slimmed = JSON.stringify(prune(parsed));
+      }
+    } catch {
+      if (/<html|<div|<body|<p|<table/i.test(inputStr)) {
+        detectedType = "html";
+        slimmed = inputStr
+          .replace(/<script[\s\S]*?<\/script>/gi, "")
+          .replace(/<style[\s\S]*?<\/style>/gi, "")
+          .replace(/<!--[\s\S]*?-->/g, "")
+          .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+          .replace(/<[^>]+>/g, " ")
+          .replace(/&nbsp;/gi, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      } else {
+        detectedType = "text";
+        slimmed = inputStr
+          .replace(/\r\n/g, "\n")
+          .replace(/[ \t]+/g, " ")
+          .replace(/\n\s*\n\s*\n+/g, "\n\n")
+          .trim();
+      }
+    }
+
+    const originalTokens = Math.max(1, Math.round(originalLength / 3.8));
+    const slimmedTokens = Math.max(1, Math.round(slimmed.length / 3.8));
+    const tokensSaved = Math.max(0, originalTokens - slimmedTokens);
+    const savingsPct = Math.round((tokensSaved / originalTokens) * 100);
 
     return {
       content: [{
         type: "text",
         text: JSON.stringify({
-          original_length: content.length,
-          slimmer_length: compressed.length,
-          compression_ratio_percent: savingsPct,
-          estimated_tokens_saved: originalTokens - savedTokens,
-          compressed_content: compressed.slice(0, 1000)
+          format: detectedType,
+          original_length_chars: originalLength,
+          slimmed_length_chars: slimmed.length,
+          tokens_original_est: originalTokens,
+          tokens_slimmed_est: slimmedTokens,
+          tokens_saved_est: tokensSaved,
+          compression_ratio_percent: `${savingsPct}%`,
+          full_payload_returned: true,
+          truncated: false,
+          compressed_content: slimmed
         }, null, 2)
       }]
     };
@@ -1160,25 +1288,107 @@ export class ToolExecutor {
 
   // 11: Math Fact-Checker
   private static async execMathFactChecker(args: any): Promise<McpCallResult> {
-    const op = args.operation || "vat_calculate";
-    const amount = Number(args.amount) || 100;
-    const rate = Number(args.rate_percent) || 20;
-    const tax = Math.round(amount * (rate / 100) * 100) / 100;
+    const op = String(args.operation || "vat_calculate").toLowerCase();
+
+    // 1. Invoice Reconciliation
+    if (op === "invoice_reconcile" || args.items !== undefined || args.line_items !== undefined) {
+      const items = Array.isArray(args.items) ? args.items : (Array.isArray(args.line_items) ? args.line_items : []);
+      let calculatedSubtotal = 0;
+      const auditedLines = [];
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const qty = Number(item.quantity) || 1;
+        const unitPrice = Number(item.unit_price) || Number(item.price) || 0;
+        const lineTotal = Math.round(qty * unitPrice * 100) / 100;
+        calculatedSubtotal += lineTotal;
+
+        const reportedTotal = item.total !== undefined ? Number(item.total) : (item.amount !== undefined ? Number(item.amount) : null);
+        const matches = reportedTotal === null || Math.abs(reportedTotal - lineTotal) < 0.02;
+
+        auditedLines.push({
+          line: i + 1,
+          description: item.description || item.name || `Item ${i + 1}`,
+          quantity: qty,
+          unit_price: unitPrice,
+          calculated_total: lineTotal,
+          reported_total: reportedTotal,
+          is_consistent: matches
+        });
+      }
+
+      calculatedSubtotal = Math.round(calculatedSubtotal * 100) / 100;
+      const rate = Number(args.rate_percent) !== undefined && !isNaN(Number(args.rate_percent)) ? Number(args.rate_percent) : 20.0;
+      const vatAmount = Math.round(calculatedSubtotal * (rate / 100) * 100) / 100;
+      const calculatedGrandTotal = Math.round((calculatedSubtotal + vatAmount) * 100) / 100;
+
+      const claimedTotal = args.total !== undefined ? Number(args.total) : (args.amount !== undefined ? Number(args.amount) : null);
+      const isReconciled = claimedTotal === null || Math.abs(claimedTotal - calculatedGrandTotal) < 0.05;
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            operation: "invoice_reconcile",
+            status: isReconciled ? "RECONCILED" : "DISCREPANCY_DETECTED",
+            lines_audited: auditedLines.length,
+            subtotal_ht: calculatedSubtotal,
+            vat_rate_percent: rate,
+            vat_amount: vatAmount,
+            total_ttc: calculatedGrandTotal,
+            claimed_total: claimedTotal,
+            discrepancy: claimedTotal !== null ? Math.round((claimedTotal - calculatedGrandTotal) * 100) / 100 : 0,
+            line_items: auditedLines,
+            audit_note: auditedLines.length === 0 && claimedTotal === null
+              ? "No line items or totals were passed in args. Provide { items: [{ quantity, unit_price }] }."
+              : (isReconciled ? "Mathematical integrity verified: line items sum matches taxes and grand total." : "Variance detected between calculated sum and claimed total.")
+          }, null, 2)
+        }]
+      };
+    }
+
+    // 2. Standard VAT Calculation
+    if (op === "vat_calculate") {
+      const amount = Number(args.amount) || 0;
+      const rate = Number(args.rate_percent) !== undefined && !isNaN(Number(args.rate_percent)) ? Number(args.rate_percent) : 20.0;
+      const tax = Math.round(amount * (rate / 100) * 100) / 100;
+      const total = Math.round((amount + tax) * 100) / 100;
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            operation: "vat_calculate",
+            base_amount_ht: amount,
+            vat_rate_percent: rate,
+            vat_amount: tax,
+            total_ttc: total,
+            formatted: `${total.toFixed(2)} EUR`,
+            is_valid: true
+          }, null, 2)
+        }]
+      };
+    }
+
+    // 3. Business Days Calculation
+    const startDate = args.start_date ? new Date(args.start_date) : new Date();
+    const daysToAdd = Number(args.days) || 10;
+    let cur = new Date(startDate);
+    let added = 0;
+    while (added < daysToAdd) {
+      cur.setDate(cur.getDate() + 1);
+      const day = cur.getDay();
+      if (day !== 0 && day !== 6) added++;
+    }
 
     return {
       content: [{
         type: "text",
         text: JSON.stringify({
-          operation: op,
-          result: amount + tax,
-          formatted: `${amount + tax} EUR`,
-          is_valid: true,
-          audit_trail: [
-            `Base amount: ${amount}`,
-            `Applied tax rate: ${rate}%`,
-            `Calculated tax: ${tax}`,
-            `Net total verified: ${amount + tax}`
-          ]
+          operation: "business_days",
+          start_date: startDate.toISOString().split("T")[0],
+          business_days_added: daysToAdd,
+          target_date: cur.toISOString().split("T")[0]
         }, null, 2)
       }]
     };

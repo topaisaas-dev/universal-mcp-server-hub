@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/mcp.json",
   "name": "topai-universal-mcp-server-hub",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Universal Native MCP Server Hub providing 19 production-grade AI agent tools with sub-30ms serverless edge execution.",
   "homepage": "https://topaigateway.com",
   "repository": {

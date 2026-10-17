@@ -1,0 +1,45 @@
+{
+  "$schema": "https://smithery.ai/docs/config#schema",
+  "name": "universal-mcp-server-hub",
+  "title": "TopAI Universal Native MCP Server Hub",
+  "description": "Universal Native Model Context Protocol (MCP) server hub bundling 19 production-grade AI agent tools with sub-30ms serverless edge execution: Web-to-Markdown, B2B Leads, Company Deep-Enrichment, AI Web Search, Semantic Cache, Invoice Extractor, Headless Screenshot, Prompt Shield, TokenSlimmer, AgentVision Crop, Deterministic Math, TechStack Fingerprinter, Polymarket Arbitrage, MCP Registry, PharmaPatent Watcher, Healthcare Validator, Google AI Overview, Disposable Email Shield, and OpenAPI Flattener.",
+  "homepage": "https://topaigateway.com",
+  "repository": "https://github.com/topaisaas-dev/universal-mcp-server-hub",
+  "icon": "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg",
+  "tags": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "cursor",
+    "windsurf",
+    "antigravity",
+    "tools",
+    "semantic-cache",
+    "token-slimmer",
+    "prompt-shield",
+    "web-search",
+    "b2b-enrichment",
+    "finops",
+    "cloudflare-workers"
+  ],
+  "startCommand": {
+    "type": "stdio",
+    "configSchema": {
+      "type": "object",
+      "properties": {
+        "topaiApiKey": {
+          "type": "string",
+          "description": "Optional TopAI API Key from https://topaigateway.com. Leave blank for public free tier.",
+          "secret": true
+        },
+        "rapidApiKey": {
+          "type": "string",
+          "description": "Optional RapidAPI Key for higher rate limits and quota. Leave blank for public free tier.",
+          "secret": true
+        }
+      }
+    },
+    "command": "npx",
+    "args": ["-y", "@topaisaas/mcp-server"]
+  }
+}

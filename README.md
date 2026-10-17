@@ -45,7 +45,32 @@ Instead of installing 19 separate local servers or bloated Docker containers, **
 
 ## 🚀 Quick Setup in Your IDE
 
-### 1. Cursor (`.cursor/mcp.json`)
+### ⚡ Option A: 1-Click Install via Smithery (Recommended)
+To automatically install and configure TopAI MCP Hub into your IDE:
+```bash
+# For Claude Desktop:
+npx -y @smithery/cli install @topaisaas/mcp-server --client claude
+
+# For Cursor:
+npx -y @smithery/cli install @topaisaas/mcp-server --client cursor
+```
+
+### 💻 Option B: Zero-Config Local Stdio (`npx`)
+Run natively on your machine without maintaining a server:
+```json
+{
+  "mcpServers": {
+    "topai-hub": {
+      "command": "npx",
+      "args": ["-y", "@topaisaas/mcp-server"]
+    }
+  }
+}
+```
+
+### 🌐 Option C: Global Serverless SSE Endpoint (Cloudflare Anycast)
+
+#### 1. Cursor (`.cursor/mcp.json`)
 Add to your project's `.cursor/mcp.json` or global Cursor settings:
 
 ```json

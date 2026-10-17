@@ -14,7 +14,8 @@
     "LICENSE",
     "glama.json",
     "mcp.json",
-    "smithery.yaml"
+    "smithery.yaml",
+    "smithery.json"
   ],
   "publishConfig": {
     "access": "public"
@@ -33,11 +34,24 @@
   "keywords": [
     "mcp",
     "model-context-protocol",
+    "mcp-server",
+    "smithery",
+    "glama",
+    "claude-desktop",
     "claude-code",
     "cursor",
+    "cursor-mcp",
     "windsurf",
     "antigravity",
     "ai-agent-tools",
+    "agentic-ai",
+    "semantic-cache",
+    "token-slimmer",
+    "prompt-shield",
+    "web-to-markdown",
+    "b2b-enrichment",
+    "finops",
+    "dora-compliance",
     "cloudflare-worker",
     "json-rpc",
     "sse"

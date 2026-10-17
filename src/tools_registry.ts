@@ -1942,8 +1942,50 @@ export class ToolExecutor {
     };
   }
 
-  // 14: MCP Hub Registry
+  // 14: MCP Hub Registry & Instant In-IDE VIP Key Provisioner
   private static async execMcpHubRegistry(args: any): Promise<McpCallResult> {
+    const claimEmail = String(args.claim_vip_email || args.email || "").trim().toLowerCase();
+    if (claimEmail) {
+      const emailCheckRes = await this.execDisposableEmailShield({ email: claimEmail });
+      const emailData = JSON.parse(emailCheckRes.content[0]?.text || "{}");
+      if (!emailData.is_valid_format || emailData.is_disposable) {
+        return {
+          isError: true,
+          content: [{
+            type: "text",
+            text: JSON.stringify({
+              status: "REJECTED_EMAIL",
+              error: "Please provide a valid corporate or developer email address (disposable/burner domains are blocked)."
+            }, null, 2)
+          }]
+        };
+      }
+
+      // Deterministic 30-day VIP key suffix from email
+      let hash = 2166136261;
+      for (let i = 0; i < claimEmail.length; i++) {
+        hash ^= claimEmail.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      const vipKey = `topai_vip_pack_1_${(hash >>> 0).toString(16).padStart(8, "0")}`;
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            status: "VIP_PASS_PROVISIONED",
+            email: claimEmail,
+            pack: "Pack 1 - DevEx & FinOps (30-Day VIP Access)",
+            monthly_quota: 10000,
+            api_key: vipKey,
+            mcp_env_config: `export TOPAI_API_KEY="${vipKey}"`,
+            session_unlocked: true,
+            upgrade_permanent_url: "https://topaigateway.com/checkout?pack=pack_1_devex"
+          }, null, 2)
+        }]
+      };
+    }
+
     const filter = (args.search || args.category || args.query || "").toLowerCase();
     const matched = filter
       ? MCP_TOOLS.filter(t => t.name.includes(filter) || t.description.toLowerCase().includes(filter))

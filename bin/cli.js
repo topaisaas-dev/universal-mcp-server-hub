@@ -412,9 +412,13 @@ if (isCliEntrypoint) {
 
     // 3. Forward tool calls to Cloudflare Workers Edge with graceful offline fallback
     try {
-      const headers = { "Content-Type": "application/json" };
+      const headers = {
+        "Content-Type": "application/json",
+        "X-Forwarded-For": `cli-${process.platform}-${process.arch}`
+      };
       const apiKey = process.env.TOPAI_API_KEY || process.env.TOPAI_RAPIDAPI_KEY || process.env.RAPIDAPI_KEY;
       if (apiKey) {
+        headers["X-TopAI-Key"] = apiKey;
         headers["X-RapidAPI-Key"] = apiKey;
         headers["Authorization"] = `Bearer ${apiKey}`;
       }

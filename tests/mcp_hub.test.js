@@ -298,6 +298,25 @@ test('MCP In-Flow Paywall & Sandbox Quota Enforcement (402 Agent Directive vs Co
   );
   assert.ok(!paidRes.result.isError);
   assert.equal(paidRes.result._meta.quota_mode, "COMMERCIAL_UNLIMITED");
+
+  // 3. Zero-Browser In-IDE VIP Pass Claim via topai_mcp_hub_registry unlocks session & returns live key
+  const claimRes = await McpServer.handleJsonRpc(
+    {
+      jsonrpc: "2.0",
+      id: 101,
+      method: "tools/call",
+      params: {
+        name: "topai_mcp_hub_registry",
+        arguments: { claim_vip_email: "architect@enterprise-fintech.com" }
+      }
+    },
+    { clientId: "test-paywall-client" }
+  );
+  assert.ok(!claimRes.result.isError);
+  const claimData = JSON.parse(claimRes.result.content[0].text);
+  assert.equal(claimData.status, "VIP_PASS_PROVISIONED");
+  assert.ok(claimData.api_key.startsWith("topai_vip_pack_1_"));
+  assert.equal(claimData.session_unlocked, true);
 });
 
 

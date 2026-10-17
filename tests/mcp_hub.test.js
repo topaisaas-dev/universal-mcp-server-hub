@@ -260,5 +260,46 @@ test('MCP Tool Execution - Math Fact Checker Exact Decimal HALF_UP vs HALF_EVEN 
   assert.equal(halfEvenData.total_ttc, 4.42, "3.42 + 1.005 (rounded to 1.00) must equal 4.42 € under HALF_EVEN");
 });
 
+test('MCP In-Flow Paywall & Sandbox Quota Enforcement (402 Agent Directive vs Commercial Key)', async (t) => {
+  McpServer.resetSandboxQuota("test-paywall-client");
+
+  // 1. Simulated quota exhaustion triggers In-Flow Paywall with AI Agent directive
+  const blockedRes = await McpServer.handleJsonRpc(
+    {
+      jsonrpc: "2.0",
+      id: 99,
+      method: "tools/call",
+      params: {
+        name: "topai_token_slimmer",
+        arguments: { content: "hello world", _simulate_quota_exceeded: true }
+      }
+    },
+    { clientId: "test-paywall-client" }
+  );
+  assert.equal(blockedRes.result.isError, true);
+  assert.equal(blockedRes.result._meta.quota_mode, "EXHAUSTED_402");
+  const paywallJson = JSON.parse(blockedRes.result.content[0].text);
+  assert.equal(paywallJson.status, 402);
+  assert.ok(paywallJson.agent_system_directive.includes("https://topaigateway.com/claim?code=VIP30"));
+  assert.ok(paywallJson.agent_system_directive.includes("https://topaigateway.com/checkout?pack=pack_1_devex"));
+
+  // 2. Commercial key bypasses sandbox quota unconditionally
+  const paidRes = await McpServer.handleJsonRpc(
+    {
+      jsonrpc: "2.0",
+      id: 100,
+      method: "tools/call",
+      params: {
+        name: "topai_token_slimmer",
+        arguments: { content: "hello world", _simulate_quota_exceeded: true }
+      }
+    },
+    { clientId: "test-paywall-client", apiKey: "topai_live_pack_1_verified999" }
+  );
+  assert.ok(!paidRes.result.isError);
+  assert.equal(paidRes.result._meta.quota_mode, "COMMERCIAL_UNLIMITED");
+});
+
+
 
 

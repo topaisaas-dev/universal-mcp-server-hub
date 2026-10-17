@@ -267,6 +267,14 @@ app.get("/v1/mcp/tools", (c) => {
   });
 });
 
+const extractAuthCtx = (c: any) => {
+  const authHeader = c.req.header("Authorization") || "";
+  const bearerKey = authHeader.replace(/^Bearer\s+/i, "").trim();
+  const apiKey = bearerKey || c.req.header("X-TopAI-Key") || c.req.header("X-RapidAPI-Key") || "";
+  const clientId = c.req.header("CF-Connecting-IP") || c.req.header("X-Forwarded-For") || "edge-anon";
+  return { clientId, apiKey };
+};
+
 /**
  * REST: Direct Tool Execution
  */
@@ -283,13 +291,17 @@ app.post("/v1/mcp/call", async (c) => {
       }, 400);
     }
 
-    const result = await ToolExecutor.execute(toolName, toolArgs);
+    const rpcRes = await McpServer.handleJsonRpc(
+      { jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: toolName, arguments: toolArgs } },
+      extractAuthCtx(c)
+    );
+    const result = (rpcRes?.result as any) || { isError: true, content: [] };
 
     return c.json({
       success: !result.isError,
       tool: toolName,
       ...result
-    });
+    }, result._meta?.quota_mode === "EXHAUSTED_402" ? 402 : 200);
   } catch (err: any) {
     return c.json({
       success: false,
@@ -304,7 +316,7 @@ app.post("/v1/mcp/call", async (c) => {
 const handleMcpJsonRpcPost = async (c: any) => {
   try {
     const req = await c.req.json() as JsonRpcRequest;
-    const res = await McpServer.handleJsonRpc(req);
+    const res = await McpServer.handleJsonRpc(req, extractAuthCtx(c));
 
     if (res === null) {
       return new Response(null, { status: 204 });

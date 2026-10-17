@@ -38,6 +38,24 @@ export class McpServer {
           result: {}
         };
 
+      case "resources/list":
+        return {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            resources: []
+          }
+        };
+
+      case "prompts/list":
+        return {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            prompts: []
+          }
+        };
+
       case "tools/list":
         return {
           jsonrpc: "2.0",

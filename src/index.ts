@@ -212,6 +212,12 @@ app.get("/llms.txt", (c) => {
     `- Pack 2 (Squad Velocity - 210 APIs): €29/mo (50,000 req/mo)\n` +
     `- Pack 3 (High-Scale & Infra - 310 APIs): €79/mo (250,000 req/mo)\n` +
     `- Pack 4 (Sovereign Enterprise - 400 APIs + DORA): €199/mo (1,000,000 req/mo)\n\n` +
+    `## Lifetime Digital Toolkits (Perpetual Licenses · Zero Recurring Fees)\n` +
+    `- Make.com & n8n Enterprise Connector Superpack: $39 one-time (https://topaigateway.com/checkout?pack=bundle_n8n_make&direct=true)\n` +
+    `- Cursor AI & Claude Code Agentic Harness Kit (19 MCP Tools): $49 one-time (https://topaigateway.com/checkout?pack=bundle_cursor_harness&direct=true)\n` +
+    `- Runaway Token Breaker & AST Circuit Optimizer: $49 one-time (https://topaigateway.com/checkout?pack=runaway_token_breaker&direct=true)\n` +
+    `- Apex WASM Fast-Path & Quantized Edge Distillation Kit: $99 one-time (https://topaigateway.com/checkout?pack=bundle_apex_wasm&direct=true)\n` +
+    `- DORA Article 30 Audit & Sovereign Compliance Kit: $149 one-time (https://topaigateway.com/checkout?pack=bundle_dora_audit&direct=true)\n\n` +
     `## 19 Native Pre-Bundled MCP Tools\n` +
     MCP_TOOLS.map((t) => `- ${t.name}: ${t.description}`).join("\n") + "\n"
   );

@@ -314,6 +314,60 @@ const isCliEntrypoint = process.argv[1] && (
 ) && !process.argv.includes("--test") && !process.execArgv.includes("--test");
 
 if (isCliEntrypoint) {
+  const args = process.argv.slice(2);
+  const wantsHelp = args.includes("--help") || args.includes("-h") || args.includes("help");
+  const wantsPricing = args.includes("--pricing") || args.includes("pricing");
+  const wantsInfo = args.includes("--info") || args.includes("-v") || args.includes("--version");
+
+  if (wantsHelp || wantsPricing || wantsInfo) {
+    const banner = [
+      '╔══════════════════════════════════════════════════════════════════════════════╗',
+      '║       TOPAI SOVEREIGN GATEWAY — UNIVERSAL NATIVE MCP SERVER HUB              ║',
+      '║        Sub-30ms V8 Edge Bridge · 19 Native MCP Tools · Zero-Token Tax        ║',
+      '╚══════════════════════════════════════════════════════════════════════════════╝',
+      '',
+      'Usage:',
+      '  npx -y @topaisaas/mcp-server            Start MCP JSON-RPC Stdio Server for IDEs/Agents',
+      '  npx -y @topaisaas/mcp-server --help     Display this documentation and tool catalog',
+      '  npx -y @topaisaas/mcp-server --pricing  View subscription packs & lifetime toolkits',
+      '',
+      '► 19 Native Pre-Bundled MCP Primitives:',
+      MCP_TOOLS.map((t) => `  • ${t.name.padEnd(28)} ${t.description}`).join('\n'),
+      '',
+      '► Lifetime Digital Toolkits (Perpetual Commercial License · Zero Recurring Fees):',
+      '  • $39 once · Make.com & n8n Enterprise Connector Superpack',
+      '    → https://topaigateway.com/checkout?pack=bundle_n8n_make&direct=true',
+      '  • $49 once · Cursor AI & Claude Code Agentic Harness Kit (19 MCP Tools)',
+      '    → https://topaigateway.com/checkout?pack=bundle_cursor_harness&direct=true',
+      '  • $49 once · Runaway Token Breaker & AST Circuit Optimizer',
+      '    → https://topaigateway.com/checkout?pack=runaway_token_breaker&direct=true',
+      '  • $99 once · Apex WASM Fast-Path & Quantized Edge Distillation Kit',
+      '    → https://topaigateway.com/checkout?pack=bundle_apex_wasm&direct=true',
+      '  • $149 once · DORA Article 30 Audit & Sovereign Compliance Kit',
+      '    → https://topaigateway.com/checkout?pack=bundle_dora_audit&direct=true',
+      '',
+      '► Monthly Cumulative Packs (High-Throughput Global Edge Mesh):',
+      '  • Pack 1 DevEx & FinOps ($14/mo · 10,000 req/mo):   https://topaigateway.com/checkout?pack=pack_1_devex',
+      '  • Pack 2 Squad Velocity ($29/mo · 50,000 req/mo):   https://topaigateway.com/checkout?pack=pack_2_squad',
+      '  • Pack 3 High-Scale Mesh ($79/mo · 250,000 req/mo):  https://topaigateway.com/checkout?pack=pack_3_highscale',
+      '  • Pack 4 Sovereign Enterprise ($199/mo · 1M req/mo): https://topaigateway.com/checkout?pack=pack_4_sovereign',
+      '',
+      '► Free 30-Day VIP Pass (10,000 requests, $0.00):',
+      '  → https://topaigateway.com/claim?code=VIP30',
+      ''
+    ].join('\n');
+    process.stdout.write(banner + '\n');
+    process.exit(0);
+  }
+
+  if (process.stdin.isTTY) {
+    process.stderr.write(
+      '[TopAI MCP Hub] Universal Native MCP Server is running in Stdio mode.\n' +
+      '[TopAI MCP Hub] Awaiting JSON-RPC requests on stdin. Press Ctrl+C to exit.\n' +
+      '[TopAI MCP Hub] Looking for lifetime perpetual licenses? Visit https://topaigateway.com/checkout?pack=bundle_cursor_harness\n'
+    );
+  }
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,

@@ -350,7 +350,7 @@ if (isCliEntrypoint) {
       '  • Pack 1 DevEx & FinOps ($14/mo · 10,000 req/mo):   https://topaigateway.com/checkout?pack=pack_1_devex',
       '  • Pack 2 Squad Velocity ($29/mo · 50,000 req/mo):   https://topaigateway.com/checkout?pack=pack_2_squad',
       '  • Pack 3 High-Scale Mesh ($79/mo · 250,000 req/mo):  https://topaigateway.com/checkout?pack=pack_3_highscale',
-      '  • Pack 4 Sovereign Enterprise ($199/mo · 1M req/mo): https://topaigateway.com/checkout?pack=pack_4_sovereign',
+      '  • Pack 4 Sovereign Enterprise ($99/mo · 1M req/mo): https://topaigateway.com/checkout?pack=pack_4_sovereign',
       '',
       '► Free 30-Day VIP Pass (10,000 requests, $0.00):',
       '  → https://topaigateway.com/claim?code=VIP30',

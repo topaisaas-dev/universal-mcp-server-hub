@@ -185,7 +185,7 @@ curl -X POST https://mcp-server-hub.topaisaas.workers.dev/mcp \
   - 🟢 **Pack 1 — DevEx & FinOps** (`100 APIs` · `10,000 req/mo` · **€14/mo**)
   - 🔵 **Pack 2 — Squad Velocity** (`210 APIs` · `50,000 req/mo` · **€29/mo**)
   - 🟣 **Pack 3 — High-Scale & Infra** (`310 APIs` · `250,000 req/mo` · **€79/mo**)
-  - 🔴 **Pack 4 — Sovereign Enterprise** (`400 APIs + DORA Audit` · `1,000,000 req/mo` · **€199/mo**)
+  - 🔴 **Pack 4 — Sovereign Enterprise** (`400 APIs + DORA Audit` · `1,000,000 req/mo` · **€99/mo**)
 - **Interactive Documentation**: **[https://topaigateway.com/docs](https://topaigateway.com/docs)**
 - **Glama MCP Directory**: **[glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub)**
 - **RapidAPI Publisher Profile**: [rapidapi.com/user/topaisaasdev](https://rapidapi.com/user/topaisaasdev)

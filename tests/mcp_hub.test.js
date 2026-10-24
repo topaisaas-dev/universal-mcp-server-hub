@@ -1,7 +1,11 @@
-import test from 'node:test';
+import test, { beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { MCP_TOOLS, SERVER_INSTRUCTIONS } from '../bin/cli.js';
 import { McpServer } from '../src/mcp_server.ts';
+
+beforeEach(() => {
+  McpServer.resetSandboxQuota();
+});
 
 test('MCP Tools Catalog - Integrity & Cold-Start Token Compression', async (t) => {
   const expectedTools = [

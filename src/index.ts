@@ -166,13 +166,13 @@ const AGENT_DISCOVERY_CARD = () => ({
     signup_url: "https://topaigateway.com"
   },
   pricing: {
-    currency: "EUR",
+    currency: "USD",
     free_tier: { requests_per_month: 100, price: 0 },
     packs: [
-      { name: "Pack 1 - DevEx & FinOps (100 APIs)", price_eur_month: 14, quota: 10000 },
-      { name: "Pack 2 - Squad Velocity (210 APIs)", price_eur_month: 29, quota: 50000 },
-      { name: "Pack 3 - High-Scale & Infra (310 APIs)", price_eur_month: 79, quota: 250000 },
-      { name: "Pack 4 - Sovereign Enterprise (400 APIs + DORA)", price_eur_month: 99, quota: 1000000 }
+      { name: "Pack 1 - DevEx & FinOps (100 APIs)", price_usd_month: 14, quota: 10000 },
+      { name: "Pack 2 - Squad Velocity (210 APIs)", price_usd_month: 29, quota: 50000 },
+      { name: "Pack 3 - High-Scale & Infra (310 APIs)", price_usd_month: 79, quota: 250000 },
+      { name: "Pack 4 - Sovereign Enterprise (400 APIs + DORA)", price_usd_month: 99, quota: 1000000 }
     ]
   },
   tools: MCP_TOOLS
@@ -207,11 +207,11 @@ app.get("/llms.txt", (c) => {
     `> MCP SSE Endpoint: https://mcp-server-hub.topaisaas.workers.dev/sse\n` +
     `> OpenAPI 3.0 Spec: https://topaigateway.com/openapi.json\n\n` +
     `## Pricing & Cumulative Packs\n` +
-    `- Free Sandbox: €0/mo (100 req/mo) at https://topaigateway.com\n` +
-    `- Pack 1 (DevEx & FinOps - 100 APIs): €14/mo (10,000 req/mo)\n` +
-    `- Pack 2 (Squad Velocity - 210 APIs): €29/mo (50,000 req/mo)\n` +
-    `- Pack 3 (High-Scale & Infra - 310 APIs): €79/mo (250,000 req/mo)\n` +
-    `- Pack 4 (Sovereign Enterprise - 400 APIs + DORA): €99/mo (1,000,000 req/mo)\n\n` +
+    `- Free Sandbox: $0/mo (100 req/mo) at https://topaigateway.com\n` +
+    `- Pack 1 (DevEx & FinOps - 100 APIs): $14/mo (10,000 req/mo)\n` +
+    `- Pack 2 (Squad Velocity - 210 APIs): $29/mo (50,000 req/mo)\n` +
+    `- Pack 3 (High-Scale & Infra - 310 APIs): $79/mo (250,000 req/mo)\n` +
+    `- Pack 4 (Sovereign Enterprise - 400 APIs + DORA): $99/mo (1,000,000 req/mo)\n\n` +
     `## Lifetime Digital Toolkits (Perpetual Licenses · Zero Recurring Fees)\n` +
     `- Make.com & n8n Enterprise Connector Superpack: $39 one-time (https://topaigateway.com/checkout?pack=bundle_n8n_make&direct=true)\n` +
     `- Cursor AI & Claude Code Agentic Harness Kit (19 MCP Tools): $49 one-time (https://topaigateway.com/checkout?pack=bundle_cursor_harness&direct=true)\n` +

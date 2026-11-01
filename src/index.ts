@@ -479,6 +479,28 @@ for (const rpcPostPath of ["/mcp", "/sse", "/", "/v1/mcp", "/api/mcp", "/rpc"]) 
 }
 
 /**
+ * GET /mcp Handler (returns 200 OK JSON descriptor or redirects SSE clients to /sse)
+ */
+app.get("/mcp", (c) => {
+  const accept = c.req.header("Accept") || "";
+  if (accept.includes("text/event-stream")) {
+    return c.redirect("/sse", 307);
+  }
+  return c.json({
+    status: "ok",
+    name: "universal-mcp-server-hub",
+    version: "1.0.3",
+    mcp_specification: "2024-11-05",
+    transports: {
+      http: "https://mcp-server-hub.topaisaas.workers.dev/mcp",
+      sse: "https://mcp-server-hub.topaisaas.workers.dev/sse"
+    },
+    tools_count: MCP_TOOLS.length,
+    tools: MCP_TOOLS
+  });
+});
+
+/**
  * Server-Sent Events (SSE) Endpoint for MCP Streaming Clients
  */
 app.get("/sse", (c) => {

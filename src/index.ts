@@ -35,7 +35,7 @@ app.get("/", (c) => {
   if (format === "json" || accept.includes("application/json")) {
     return c.json({
       name: "Universal Native MCP Server Hub",
-      version: "1.0.2",
+      version: "1.0.6",
       description: "Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity. Bridges 19 production AI agent tools including web-to-markdown, B2B intelligence, real-time search, semantic caching, financial math, techstack fingerprinter, and prediction market arbitrage.",
       mcp_version: "2024-11-05",
       documentation: "https://mcp-server-hub.topaisaas.workers.dev/openapi.json",
@@ -70,7 +70,7 @@ app.get("/.well-known/mcp/server-card.json", (c) => {
   const metadata = {
     name: "universal-mcp-server-hub",
     title: "Universal Native MCP Server Hub",
-    version: "1.0.2",
+    version: "1.0.6",
     description: "High-performance Model Context Protocol (MCP) server hub providing 19 production-grade AI agent tools: Web-to-Markdown, B2B leads, company deep-enrichment, real-time web search grounding, semantic cache, invoice OCR, headless screenshot, prompt shield firewall, token compression, AgentVision crop, deterministic financial & VAT math, 70+ CMS/techstack fingerprinter, Polymarket prediction odds & Kelly arbitrage, MCP registry, PharmaPatent Orange Book watcher, healthcare NPI validator, Google AI Overview extractor, disposable email shield, and OpenAPI spec flattener.",
     homepage: "https://mcp-server-hub.topaisaas.workers.dev",
     icon: "https://raw.githubusercontent.com/topaisaas-dev/universal-mcp-server-hub/main/logo.jpg",
@@ -213,7 +213,7 @@ const AGENT_DISCOVERY_CARD = () => ({
   mcp_version: "2024-11-05",
   name: "TopAI Sovereign Gateway & Universal MCP Hub",
   id: "universal-mcp-server-hub",
-  version: "1.0.3",
+  version: "1.0.6",
   description: "Sub-30ms Deterministic AI Edge Gateway & Universal MCP Server Hub bundling 19 native MCP tools and 400+ deterministic APIs (Web-to-Markdown, TokenSlimmer -70% LLM cost cutter, Prompt Shield, SEPA IBAN VoP, EU AI Act & DORA compliance).",
   url: "https://topaigateway.com",
   homepage: "https://topaigateway.com",
@@ -377,7 +377,7 @@ for (const healthPath of ["/v1/health", "/api/status", "/status"]) {
       service: "universal-mcp-server-hub",
       timestamp: new Date().toISOString(),
       uptime_sla: "99.99%",
-      version: "1.0.3",
+      version: "1.0.6",
       tools_registered: MCP_TOOLS.length,
       x402_supported: true,
       edge_runtime: "cloudflare_workers"
@@ -489,7 +489,7 @@ app.get("/mcp", (c) => {
   return c.json({
     status: "ok",
     name: "universal-mcp-server-hub",
-    version: "1.0.3",
+    version: "1.0.6",
     mcp_specification: "2024-11-05",
     transports: {
       http: "https://mcp-server-hub.topaisaas.workers.dev/mcp",

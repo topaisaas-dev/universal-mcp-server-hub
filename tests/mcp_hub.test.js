@@ -49,7 +49,7 @@ test('MCP Protocol - JSON-RPC 2.0 initialize specification', async (t) => {
   const res = await McpServer.handleJsonRpc({ jsonrpc: "2.0", id: 1, method: "initialize" });
   assert.equal(res.result.protocolVersion, "2024-11-05");
   assert.equal(res.result.serverInfo.name, "topai-mcp-hub");
-  assert.equal(res.result.serverInfo.version, "1.0.5");
+  assert.equal(res.result.serverInfo.version, "1.0.6");
   assert.ok(res.result.capabilities.tools);
 });
 

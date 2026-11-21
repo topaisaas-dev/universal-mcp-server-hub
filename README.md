@@ -1,21 +1,128 @@
-# Universal Native MCP Server Hub — TopAI Sovereign Gateway
+# `@topaisaas/mcp-server` — Universal Native MCP Server Hub (TopAI Sovereign Gateway)
 
-> **Universal Model Context Protocol (MCP) Server Hub for Claude Code, Cursor, Windsurf, and Antigravity**
-> 🌐 **Official Gateway & Free Sandbox Key (100 req/mo)**: **[https://topaigateway.com](https://topaigateway.com)** · 📚 **Docs (400+ APIs & 201 Tools)**: **[https://topaigateway.com/docs](https://topaigateway.com/docs)**
+> **19 Production-Grade Deterministic MCP Tools + 400+ Sub-30ms Edge APIs for Claude Code, Cursor, Windsurf, Claude Desktop, and Antigravity.**
+> 🌐 **Official Gateway & Free Sandbox**: **[https://topaigateway.com](https://topaigateway.com?utm_source=npm&utm_medium=readme)** · 📚 **Interactive Docs**: **[https://topaigateway.com/docs](https://topaigateway.com/docs?utm_source=npm&utm_medium=readme)** · ⚡ **0ms Cold Start · Zero Token Tax · 100% USD**
 
+[![npm version](https://img.shields.io/npm/v/@topaisaas/mcp-server?style=flat&color=FFD600)](https://www.npmjs.com/package/@topaisaas/mcp-server)
 [![Glama MCP](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub/badge)](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub)
 [![M8ven Trust](https://m8ven.ai/badge/mcp/topaisaas-dev/universal-mcp-server-hub)](https://m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub)
 [![smithery badge](https://smithery.ai/badge/top-ai-saas/mcp-server)](https://smithery.ai/servers/top-ai-saas/mcp-server)
-[![npm version](https://img.shields.io/npm/v/@topaisaas/mcp-server?style=flat&color=FFD600)](https://www.npmjs.com/package/@topaisaas/mcp-server)
 [![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare%20Workers-orange.svg)](https://topaigateway.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Uptime](https://img.shields.io/badge/Uptime-100%25-brightgreen.svg)](https://topaigateway.com/v1/health)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.0.3-brightgreen.svg)](https://topaigateway.com/openapi.json)
-[![RapidAPI](https://img.shields.io/badge/RapidAPI-Subscribe%20Free-blue.svg)](https://rapidapi.com/topaisaasdev/api/universal-native-mcp-server-hub/pricing)
 
-With the rise of autonomous coding assistants and agents (**Claude Code, Cursor, Windsurf, Antigravity, CrewAI, LangChain**), the **Model Context Protocol (MCP)** has become the universal standard for tool calling.
+Stop installing 19 fragile local MCP servers, managing heavy Docker containers, or burning LLM tokens on tasks deterministic code solves in **<30ms**.
 
-Instead of installing 19 separate local servers or bloated Docker containers, **Universal Native MCP Server Hub** bundles 19 production-grade AI primitives (and routes to **400+ deterministic edge APIs** at **[topaigateway.com](https://topaigateway.com)**) into a single serverless edge hub running with 0ms cold-start latency across 330+ global Cloudflare locations.
+**`@topaisaas/mcp-server`** ships **19 native pre-bundled MCP primitives** (Web-to-Markdown, TokenSlimmer lossless compressor, Prompt Shield firewall, deterministic VAT/financial math, B2B firmographics, SEPA/healthcare validators, OpenAPI `$ref` flattener, and more) backed by **400+ deterministic edge APIs** running on Cloudflare Workers across 330+ global PoPs.
+
+---
+
+## ⚡ 1-Line Setup (`npx -y @topaisaas/mcp-server`)
+
+### 1. Claude Code (CLI — 1 Command)
+```bash
+claude mcp add topai-hub -- npx -y @topaisaas/mcp-server
+```
+
+### 2. Cursor (`.cursor/mcp.json`)
+```json
+{
+  "mcpServers": {
+    "topai-hub": {
+      "command": "npx",
+      "args": ["-y", "@topaisaas/mcp-server"]
+    }
+  }
+}
+```
+
+### 3. Windsurf (`~/.codeium/windsurf/mcp_config.json`)
+```json
+{
+  "mcpServers": {
+    "topai-hub": {
+      "command": "npx",
+      "args": ["-y", "@topaisaas/mcp-server"]
+    }
+  }
+}
+```
+
+### 4. Claude Desktop (`claude_desktop_config.json`)
+```json
+{
+  "mcpServers": {
+    "topai-hub": {
+      "command": "npx",
+      "args": ["-y", "@topaisaas/mcp-server"]
+    }
+  }
+}
+```
+
+### Remote Zero-Install SSE & Streamable HTTP Endpoints (Cloudflare Anycast)
+- **Streamable HTTP / JSON-RPC 2.0**: `https://mcp-server-hub.topaisaas.workers.dev/mcp`
+- **SSE Endpoint**: `https://mcp-server-hub.topaisaas.workers.dev/sse`
+
+*(Optional: pass `TOPAI_API_KEY` in `env` to unlock unlimited commercial throughput.)*
+
+---
+
+## 🧪 5-Second Live Edge Verification (`curl` — Zero Signup Required)
+
+Test our live deterministic edge endpoints directly from your terminal right now:
+
+### 1. Clean Web-to-Markdown Extractor (`/v1/extract`)
+```bash
+curl -s -X POST https://topaigateway.com/v1/extract \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://news.ycombinator.com","include_links":true}'
+```
+
+### 2. TokenSlimmer Prompt & JSON Compressor (`/v1/compress`)
+```bash
+curl -s -X POST https://topaigateway.com/v1/compress \
+  -H "Content-Type: application/json" \
+  -d '{"prompt":"Please kindly analyze this payload carefully and summarize the key architecture details for our engineering team."}'
+```
+
+### 3. Deterministic Financial Math Checker (`/v1/math/check`)
+```bash
+curl -s -X POST https://topaigateway.com/v1/math/check \
+  -H "Content-Type: application/json" \
+  -d '{"expression":"(1250 * 0.20) + 1250"}'
+```
+
+---
+
+## 🎯 Free Interactive Sample Preview Hubs (Try Before You Buy)
+
+Inspect real production templates and starter configs immediately in your browser — no login required:
+
+- **Cursor & Claude Code Sovereign Rules Starter (`.cursorrules` / `CLAUDE.md`)**:
+  👉 [Download & Preview `topai-cursor-rules.txt`](https://topaigateway.com/download/samples/topai-cursor-rules.txt?utm_source=npm&utm_medium=readme)
+- **n8n & Make Sovereign Workflow Starter JSON (Importable Node Flow)**:
+  👉 [Download & Preview `topai-n8n-starter.json`](https://topaigateway.com/samples/topai-n8n-starter.json?utm_source=npm&utm_medium=readme)
+
+---
+
+## 💎 Hero Quartet — Instant USD Direct Checkout
+
+> **100% USD Pricing · Zero Recurring Lock-In on Lifetime Kits · Backed by our 14-Day No-Questions-Asked Money-Back Guarantee.**
+
+| Offer | Price (USD) | What You Unlock Immediately | Instant Checkout |
+| :--- | :--- | :--- | :--- |
+| 🟢 **Pack 1: DevEx & FinOps** *(7-Day Free Trial)* | **$0 today** *(then $14/mo)* | 101 deterministic edge APIs · 10,000 req/mo · Instant API key | **[Start $0 7-Day Free Trial →](https://topaigateway.com/checkout?pack=pack_1_devex&direct=true&utm_source=npm&utm_medium=readme)** |
+| ⚡ **n8n & Make Super-Pack** *(Lifetime License)* | **$19 one-time** | Production n8n & Make.com JSON workflows + edge connectors · Zero recurring fees | **[Get n8n Super-Pack ($19) →](https://topaigateway.com/checkout?pack=bundle_n8n_make&direct=true&utm_source=npm&utm_medium=readme)** |
+| 🛡️ **Runaway Token Breaker** *(Lifetime License)* | **$29 one-time** | Hard AST circuit breaker, loop-burn firewall & lossless TokenSlimmer middleware | **[Get Token Breaker ($29) →](https://topaigateway.com/checkout?pack=runaway_token_breaker&direct=true&utm_source=npm&utm_medium=readme)** |
+| 🚀 **Cursor & Claude Code Harness Kit** *(Lifetime License)* | **$49 one-time** | Full 19-tool sovereign MCP harness, `.cursorrules` blueprint & production configs | **[Get Harness Kit ($49) →](https://topaigateway.com/checkout?pack=bundle_cursor_harness&direct=true&utm_source=npm&utm_medium=readme)** |
+
+### High-Throughput Cumulative API Packs (Monthly USD)
+- **Pack 1 — DevEx & FinOps**: `$0` 7-Day Free Trial, then **$14/mo** (`101 APIs` · `10,000 req/mo`) — [Checkout](https://topaigateway.com/checkout?pack=pack_1_devex&direct=true&utm_source=npm&utm_medium=readme)
+- **Pack 2 — Squad Velocity**: **$29/mo** (`210 APIs` · `50,000 req/mo`) — [Checkout](https://topaigateway.com/checkout?pack=pack_2_squad&direct=true&utm_source=npm&utm_medium=readme)
+- **Pack 3 — High-Scale & Infra**: **$79/mo** (`280 APIs` · `250,000 req/mo`) — [Checkout](https://topaigateway.com/checkout?pack=pack_3_highscale&direct=true&utm_source=npm&utm_medium=readme)
+- **Pack 4 — Sovereign Enterprise**: **$99/mo** (`400 APIs + DORA Compliance` · `1,000,000 req/mo`) — [Checkout](https://topaigateway.com/checkout?pack=pack_4_sovereign&direct=true&utm_source=npm&utm_medium=readme)
 
 ---
 
@@ -29,130 +136,25 @@ Instead of installing 19 separate local servers or bloated Docker containers, **
 6. `topai_invoice_extractor`: Structured financial entity parser (vendor, IBAN, amounts, line items).
 7. `topai_headless_screenshot`: High-fidelity web screenshot renderer & DOM metadata.
 8. `topai_prompt_shield`: Sub-millisecond firewall against prompt injection, jailbreaks, and PII leaks.
-9. `topai_token_slimmer`: Lossless HTML & JSON compressor to slash input token costs by 30-70%.
+9. `topai_token_slimmer`: Lossless HTML & JSON compressor (preserves 64-bit integer IDs & nulls) to cut input token costs by 30-70%.
 10. `topai_agentvision_crop`: Multimodal ROI cropper to isolate UI buttons/tables and slash vision tokens by 75%.
-11. `topai_math_fact_checker`: Deterministic VAT, invoice reconciliation, and business days to stop hallucinations.
+11. `topai_math_fact_checker`: Exact decimal VAT (`HALF_UP`/`HALF_EVEN`), invoice reconciliation, and business days to eliminate math hallucinations.
 12. `topai_techstack_fingerprint`: Sub-50ms BuiltWith alternative (Shopify, Stripe, HubSpot, Next.js).
-13. `topai_polymarket_arbitrage`: Prediction market odds, cross-platform delta vs bookmakers, and Kelly sizing.
+13. `topai_polymarket_arbitrage`: Prediction market odds, cross-platform delta vs bookmakers, and half-Kelly sizing.
 14. `topai_mcp_hub_registry`: MCP tool registry introspector & capability discovery.
 15. `topai_pharmapatent_watcher`: FDA Orange Book patent cliffs, exclusivity expirations & generic challenge tracker.
-16. `topai_healthcare_validator`: Instant NPI (Luhn 80840), EU RPPS/ADELI credentials & medical license verification.
+16. `topai_healthcare_validator`: Instant 10-digit US NPI (ISO Luhn 80840), EU RPPS/ADELI credentials & medical license verification.
 17. `topai_google_ai_overview`: Extract Google AI Overviews, cited sources, and SERP organic snippets.
 18. `topai_disposable_email_shield`: Real-time burner email detection, DoH MX live check & B2B lead audit.
-19. `topai_openapi_flattener`: OpenAPI 3.0/3.1 recursive $ref dereferencer & RapidAPI schema sanitizer.
+19. `topai_openapi_flattener`: OpenAPI 3.0/3.1 recursive `$ref` dereferencer & schema sanitizer.
 
 ---
 
-## 🚀 Quick Setup in Your IDE
+## 🛠️ Direct MCP JSON-RPC 2.0 & REST Usage
 
-### ⚡ Option A: 1-Click Install via Smithery (Recommended)
-To automatically install and configure TopAI MCP Hub into your IDE:
+### MCP JSON-RPC 2.0 (`POST /mcp`)
 ```bash
-# For Claude Desktop:
-npx -y @smithery/cli install @topaisaas/mcp-server --client claude
-
-# For Cursor:
-npx -y @smithery/cli install @topaisaas/mcp-server --client cursor
-```
-
-### 💻 Option B: Zero-Config Local Stdio (`npx`)
-Run natively on your machine without maintaining a server:
-```json
-{
-  "mcpServers": {
-    "topai-hub": {
-      "command": "npx",
-      "args": ["-y", "@topaisaas/mcp-server"]
-    }
-  }
-}
-```
-
-### 🌐 Option C: Global Serverless SSE Endpoint (Cloudflare Anycast)
-
-#### 1. Cursor (`.cursor/mcp.json`)
-Add to your project's `.cursor/mcp.json` or global Cursor settings:
-
-```json
-{
-  "mcpServers": {
-    "topai-hub": {
-      "url": "https://mcp-server-hub.topaisaas.workers.dev/sse"
-    }
-  }
-}
-```
-
-### 2. Claude Desktop (`claude_desktop_config.json`)
-```json
-{
-  "mcpServers": {
-    "topai-hub": {
-      "url": "https://mcp-server-hub.topaisaas.workers.dev/sse"
-    }
-  }
-}
-```
-
-### 3. Windsurf (`mcp_config.json`)
-```json
-{
-  "mcpServers": {
-    "topai-hub": {
-      "serverUrl": "https://mcp-server-hub.topaisaas.workers.dev/sse"
-    }
-  }
-}
-```
-
-### 4. Antigravity (`mcp_servers.json`)
-```json
-{
-  "topai-hub": {
-    "url": "https://mcp-server-hub.topaisaas.workers.dev/sse",
-    "description": "TopAI SaaS Universal MCP Hub with 9 production tools"
-  }
-}
-```
-
----
-
-## 🛠️ Direct REST & JSON-RPC Usage
-
-### List Available Tools (GET)
-```bash
-curl "https://mcp-server-hub.topaisaas.workers.dev/v1/mcp/tools"
-```
-
-### Execute a Tool via REST (POST)
-```bash
-curl -X POST https://mcp-server-hub.topaisaas.workers.dev/v1/mcp/call \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "topai_techstack_fingerprint",
-    "arguments": {
-      "domain": "gymshark.com"
-    }
-  }'
-```
-
-**Response (Standard MCP Content Block):**
-```json
-{
-  "success": true,
-  "tool": "topai_techstack_fingerprint",
-  "content": [
-    {
-      "type": "text",
-      "text": "{\n  \"domain\": \"gymshark.com\",\n  \"technologies\": [\"Shopify\", \"Klaviyo\", \"Stripe\", \"Cloudflare\"],\n  \"detected_count\": 4,\n  \"sub_50ms\": true\n}"
-    }
-  ]
-}
-```
-
-### Standard MCP JSON-RPC 2.0 (POST /mcp)
-```bash
-curl -X POST https://mcp-server-hub.topaisaas.workers.dev/mcp \
+curl -s -X POST https://mcp-server-hub.topaisaas.workers.dev/mcp \
   -H "Content-Type: application/json" \
   -d '{
     "jsonrpc": "2.0",
@@ -169,25 +171,28 @@ curl -X POST https://mcp-server-hub.topaisaas.workers.dev/mcp \
   }'
 ```
 
----
-
-## 🛡️ Edge Security & SLAs
-
-- **0ms Cold-Start**: Powered by Cloudflare Workers V8 isolates worldwide.
-- **100% Stateless**: No user prompts, code, or arguments are logged or stored.
-- **Spec Compliance**: Fully compliant with the Anthropic Model Context Protocol (2024-11-05).
+### List All Tools (`GET /v1/mcp/tools`)
+```bash
+curl -s "https://mcp-server-hub.topaisaas.workers.dev/v1/mcp/tools"
+```
 
 ---
 
-## 📬 Official Gateway, 4 Cumulative Packs & Marketplaces
+## 🛡️ Edge Security, Zero Retention & Spec Compliance
 
-- **Official Sovereign Gateway (400+ APIs & Free Sandbox Key)**: **[https://topaigateway.com](https://topaigateway.com)**
-  - 🟢 **Pack 1 — DevEx & FinOps** (`100 APIs` · `10,000 req/mo` · **$14/mo**)
-  - 🔵 **Pack 2 — Squad Velocity** (`210 APIs` · `50,000 req/mo` · **$29/mo**)
-  - 🟣 **Pack 3 — High-Scale & Infra** (`310 APIs` · `250,000 req/mo` · **$79/mo**)
-  - 🔴 **Pack 4 — Sovereign Enterprise** (`400 APIs + DORA Audit` · `1,000,000 req/mo` · **$99/mo**)
-- **Interactive Documentation**: **[https://topaigateway.com/docs](https://topaigateway.com/docs)**
-- **Glama MCP Directory**: **[glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub)**
-- **RapidAPI Publisher Profile**: [rapidapi.com/user/topaisaasdev](https://rapidapi.com/user/topaisaasdev)
-- **TopAI Master Organization**: [github.com/topaisaas-dev](https://github.com/topaisaas-dev)
+- **0ms Cold-Start**: Powered by Cloudflare Workers V8 isolates across 330+ global locations.
+- **100% Stateless & Zero Payload Retention**: No user prompts, source code, or arguments are logged or stored.
+- **Native Protocol Compliance**: Full Anthropic MCP (`2024-11-05`), OpenAPI 3.0.3, A2A Agent Card, and x402 Base USDC machine micropayments (`$0.001/call`).
+- **14-Day Money-Back Guarantee**: Risk-free checkout on every kit and subscription pack.
+
+---
+
+## 📬 Links & Registries
+
+- **Official Sovereign Gateway**: [https://topaigateway.com](https://topaigateway.com?utm_source=npm&utm_medium=readme)
+- **Interactive API Docs**: [https://topaigateway.com/docs](https://topaigateway.com/docs?utm_source=npm&utm_medium=readme)
+- **npm Package**: [https://www.npmjs.com/package/@topaisaas/mcp-server](https://www.npmjs.com/package/@topaisaas/mcp-server)
+- **GitHub Repository**: [https://github.com/topaisaas-dev/universal-mcp-server-hub](https://github.com/topaisaas-dev/universal-mcp-server-hub)
+- **Glama MCP Directory**: [glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub](https://glama.ai/mcp/servers/topaisaas-dev/universal-mcp-server-hub)
 - **M8ven Trust Index**: [m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub](https://m8ven.ai/mcp/topaisaas-dev/universal-mcp-server-hub)
+- **RapidAPI Publisher Profile**: [rapidapi.com/user/topaisaasdev](https://rapidapi.com/user/topaisaasdev)
